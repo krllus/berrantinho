@@ -2,8 +2,6 @@ package com.example.joao.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,14 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.joao.myapplication.notification.NotificationHelper;
+import com.example.joao.myapplication.notification.NotificationIntentService;
+import com.example.joao.myapplication.notification.model.NotificationBase;
+import com.example.joao.myapplication.notification.model.SuplementacaoNotification;
+import com.example.joao.myapplication.notification.model.SuplementacaoNotificationBuilder;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final int notification_one = 101;
-    private static final int notification_two = 201;
-
     private EditText edtChannelOneText;
-    private EditText edtChannelTwoText;
 
     private NotificationHelper notificationHelper;
 
@@ -30,19 +28,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         notificationHelper = new NotificationHelper(this);
-
         edtChannelOneText = findViewById(R.id.channel_one_text);
-        edtChannelTwoText = findViewById(R.id.channel_two_text);
 
         Button btnChannelOnePost = findViewById(R.id.post_to_channel_one);
-        Button btnChannelTwoPost = findViewById(R.id.post_to_channel_two);
         Button btnChannelOneSettings = findViewById(R.id.channel_one_settings);
-        Button btnChannelTwoSettings = findViewById(R.id.channel_two_settings);
 
         btnChannelOnePost.setOnClickListener(this);
-        btnChannelTwoPost.setOnClickListener(this);
         btnChannelOneSettings.setOnClickListener(this);
-        btnChannelTwoSettings.setOnClickListener(this);
     }
 
     @Override
@@ -66,16 +58,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.post_to_channel_one:
-                postNotification(notification_one, getChannelOneText());
-                break;
-            case R.id.post_to_channel_two:
-                postNotification(notification_two, getChannelTwoText());
+                postNotification(
+                        NotificationBase.NOTIFICATION_ID_SUPLEMENTACAO,
+                        getChannelOneText());
                 break;
             case R.id.channel_one_settings:
-                notificationHelper.openNotificationSettings(NotificationHelper.CHANNEL_ONE_ID);
+                notificationHelper.openNotificationSettings(NotificationBase.NOTIFICATION_CHANNEL_SUPLEMENTACAO_ID);
                 break;
-            case R.id.channel_two_settings:
-                notificationHelper.openNotificationSettings(NotificationHelper.CHANNEL_TWO_ID);
+
+            case R.id.launchActivity2:
+                Intent intent = new Intent(this, Main2Activity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -87,28 +80,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return "";
     }
 
-    private String getChannelTwoText() {
-        if (edtChannelTwoText != null) {
-            return edtChannelTwoText.getText().toString();
-        }
-        return "";
-    }
-
-    private void postNotification(int id, String title) {
-        NotificationCompat.Builder notificationBuilder = null;
+    private void postNotification(int id, String content) {
         switch (id) {
-            case notification_one:
-                notificationBuilder = notificationHelper
-                        .getNotification1(title, getString(R.string.channel_one_body));
-                break;
-            case notification_two:
-                notificationBuilder = notificationHelper
-                        .getNotification2(title, getString(R.string.channel_two_body));
-                break;
-        }
+            case NotificationBase.NOTIFICATION_ID_SUPLEMENTACAO:
+                SuplementacaoNotification notification = new SuplementacaoNotificationBuilder()
+                        .setMessageContent(content)
+                        .setMessageTitle("Title Notification Suplementacao")
+                        .createSuplementacaoNotification();
 
-        if (notificationBuilder != null) {
-            notificationHelper.notify(id, notificationBuilder);
+                NotificationIntentService.startNotification(this,
+                        notification,
+                        notification.getID(),
+                        NotificationBase.NOTIFICATION_CHANNEL_SUPLEMENTACAO_ID);
+                break;
         }
     }
 

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">@color/marrom</color>
+    <color name="colorPrimaryDark">@color/marrom_dark</color>
+    <color name="colorAccent">@color/palha</color>
+
+    <color name="azul">#3F51B5</color>
+    <color name="azul_dark">#303F9F</color>
+    <color name="pink">#FF4081</color>
+
+    <color name="palha">#efb728</color>
+    <color name="marrom">#4e342e</color>
+    <color name="marrom_dark">#3e2723</color>
+
+    <color name="light_gray">#e3e3e3</color>
 </resources>
