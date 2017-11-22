@@ -24,5 +24,31 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <!-- TEXT STYLES -->
+    <style name="Biox.TextAppearance.Body" parent="@android:style/TextAppearance.Material.Body1">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Biox.TextAppearance.Title" parent="@android:style/TextAppearance.Material.Title">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Biox.TextAppearance.SubTitle" parent="@android:style/TextAppearance.Material.Subhead">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Biox.TextAppearance.Caption" parent="@android:style/TextAppearance.Material.Caption">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Biox.TextAppearance.Filter" parent="Biox.TextAppearance.Body">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:background">@drawable/filter</item>
+        <item name="android:textAlignment">center</item>
+    </style>
 
 </resources>
