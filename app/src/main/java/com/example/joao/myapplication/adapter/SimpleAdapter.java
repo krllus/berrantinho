@@ -30,7 +30,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleViewHolder> {
     @Override
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_suplmentacao, parent, false);
+                .inflate(R.layout.row_suplementacao, parent, false);
         return new SimpleViewHolder(view);
     }
 
