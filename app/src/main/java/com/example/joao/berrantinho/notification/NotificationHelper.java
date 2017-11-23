@@ -1,4 +1,4 @@
-package com.example.joao.myapplication.notification;
+package com.example.joao.berrantinho.notification;
 
 import android.content.Context;
 import android.content.ContextWrapper;

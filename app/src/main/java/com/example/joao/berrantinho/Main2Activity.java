@@ -1,4 +1,4 @@
-package com.example.joao.myapplication;
+package com.example.joao.berrantinho;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,9 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.joao.myapplication.adapter.SimpleAdapter;
-import com.example.joao.myapplication.model.Simple;
-import com.example.joao.myapplication.model.SimpleEnum;
+import com.example.joao.berrantinho.adapter.SimpleAdapter;
+import com.example.joao.berrantinho.model.Simple;
+import com.example.joao.berrantinho.model.SimpleEnum;
 
 import java.util.ArrayList;
 import java.util.List;

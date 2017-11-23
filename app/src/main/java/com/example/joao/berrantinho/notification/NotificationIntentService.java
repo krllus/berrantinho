@@ -1,4 +1,4 @@
-package com.example.joao.myapplication.notification;
+package com.example.joao.berrantinho.notification;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -15,8 +15,8 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
-import com.example.joao.myapplication.R;
-import com.example.joao.myapplication.notification.model.NotificationBase;
+import com.example.joao.berrantinho.R;
+import com.example.joao.berrantinho.notification.model.NotificationBase;
 
 import java.util.ArrayList;
 

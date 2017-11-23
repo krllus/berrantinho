@@ -1,4 +1,4 @@
-package com.example.joao.myapplication;
+package com.example.joao.berrantinho;
 
 import org.junit.Test;
 

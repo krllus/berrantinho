@@ -1,4 +1,4 @@
-package com.example.joao.myapplication.notification.model;
+package com.example.joao.berrantinho.notification.model;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import com.example.joao.myapplication.notification.NotificationIntentService;
+import com.example.joao.berrantinho.notification.NotificationIntentService;
 
 /**
  * Created by Joao Carlos on 11/20/17.

@@ -1,10 +1,10 @@
-package com.example.joao.myapplication.viewholder;
+package com.example.joao.berrantinho.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.joao.myapplication.R;
+import com.example.joao.berrantinho.R;
 
 /**
  * Created by Joao Carlos on 11/22/17.

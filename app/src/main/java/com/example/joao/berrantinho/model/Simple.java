@@ -1,4 +1,4 @@
-package com.example.joao.myapplication.model;
+package com.example.joao.berrantinho.model;
 
 /**
  * Created by Joao Carlos on 11/22/17.

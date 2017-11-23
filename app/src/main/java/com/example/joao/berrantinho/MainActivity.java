@@ -1,4 +1,4 @@
-package com.example.joao.myapplication;
+package com.example.joao.berrantinho;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.joao.myapplication.notification.NotificationHelper;
-import com.example.joao.myapplication.notification.NotificationIntentService;
-import com.example.joao.myapplication.notification.model.NotificationBase;
-import com.example.joao.myapplication.notification.model.SuplementacaoNotification;
-import com.example.joao.myapplication.notification.model.SuplementacaoNotificationBuilder;
+import com.example.joao.berrantinho.notification.NotificationHelper;
+import com.example.joao.berrantinho.notification.NotificationIntentService;
+import com.example.joao.berrantinho.notification.model.NotificationBase;
+import com.example.joao.berrantinho.notification.model.SuplementacaoNotification;
+import com.example.joao.berrantinho.notification.model.SuplementacaoNotificationBuilder;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

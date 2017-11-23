@@ -1,4 +1,4 @@
-package com.example.joao.myapplication.notification.model;
+package com.example.joao.berrantinho.notification.model;
 
 /**
  * Created by Joao Carlos on 11/20/17.

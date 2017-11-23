@@ -1,13 +1,13 @@
-package com.example.joao.myapplication.adapter;
+package com.example.joao.berrantinho.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.joao.myapplication.R;
-import com.example.joao.myapplication.model.Simple;
-import com.example.joao.myapplication.viewholder.SimpleViewHolder;
+import com.example.joao.berrantinho.R;
+import com.example.joao.berrantinho.model.Simple;
+import com.example.joao.berrantinho.viewholder.SimpleViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
