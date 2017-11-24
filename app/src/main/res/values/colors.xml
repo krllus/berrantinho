@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">@color/marrom_dark</color>
     <color name="colorAccent">@color/palha</color>
 
+    <color name="activity_background">@color/light_gray</color>
+
     <color name="azul">#3F51B5</color>
     <color name="azul_dark">#303F9F</color>
     <color name="pink">#FF4081</color>

@@ -23,6 +23,7 @@
             android:name=".Main2Activity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionbar" />
+
     </application>
 
 </manifest>
