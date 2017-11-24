@@ -1,22 +1,30 @@
 <resources>
-    <string name="app_name">Testes com Notificações</string>
+    <string name="app_name">Berrantinho</string>
     <string name="menu_main_settings">Configurações</string>
     <string name="menu_main_halp">Ajuda</string>
     <string name="menu_main_about">Sobre</string>
-
-    <string name="button_label">Mostrar Notificação</string>
     <string name="settings">Configurações</string>
 
+    <string name="activity_notification">Notification</string>
+    <string name="activity_suplementacao">Suplementacao</string>
+    <string name="activity_toolbar">Simple Toolbar</string>
+
+    <string name="btn_start_notification_label">Notificação</string>
+    <string name="post_notification">Post Notification</string>
     <string name="channel_one_title">Reposição de Suplementos</string>
     <string name="channel_one_text_hint">Conteudo Notificação</string>
-    <string name="barrier">A Barrier is a virtual view, similar to a Guideline, to which we can constrain objects. The difference between a Barrier and a Guideline is that the position of a Barrier is determined by the dimensions of multiple views. In the case of our example, we don’t know whether textView1 or textView2 will be wider, so we can create a Barrier based upon the widths of these two Views. Then we can constrain textView3 to the Barrier.</string>
+
+    <string name="btn_start_suplementacao_label">Suplementacao</string>
+    <string name="filter_title">Suplementação</string>
     <string name="vazio">Vazio</string>
     <string name="repor">Repor</string>
     <string name="com_produto">Com Produto</string>
     <string name="todos">Todos</string>
-    <string name="filter_title">Suplementação</string>
     <string name="lengeda">lengeda: N/C - não calculado</string>
-    <string name="activity_2">Activity 2</string>
-    <string name="dumb_text">I tried to create a list in my fragment, where I created a card view and using an adapter I populated the list with the card view. But the issue I am facing is, In my android studio XML layout, You can see a margin at both left and right of the screen, while when I installed on my phone, the margin is not seen!!</string>
+
+    <string name="btn_start_toolbar_label">Toolbar</string>
+
+    <string name="dumb_large_text_I">I tried to create a list in my fragment, where I created a card view and using an adapter I populated the list with the card view. But the issue I am facing is, In my android studio XML layout, You can see a margin at both left and right of the screen, while when I installed on my phone, the margin is not seen!!</string>
+    <string name="dumb_large_text_II">A Barrier is a virtual view, similar to a Guideline, to which we can constrain objects. The difference between a Barrier and a Guideline is that the position of a Barrier is determined by the dimensions of multiple views. In the case of our example, we don’t know whether textView1 or textView2 will be wider, so we can create a Barrier based upon the widths of these two Views. Then we can constrain textView3 to the Barrier.</string>
 
 </resources>

@@ -22,7 +22,7 @@ public abstract class NotificationBase implements Parcelable {
     public static final String NOTIFICATION_CHANNEL_SUPLEMENTACAO_ID = "SUPLEMENTACAO";
     public static final String NOTIFICATION_CHANNEL_SUPLEMENTACAO_NAME = "Suplementação";
 
-    public static final String NOTIFICATION_GROUP_SUPLEMENTACAO = "Grupo Suplementacao";
+    public static final String NOTIFICATION_GROUP_SUPLEMENTACAO = "Grupo SuplementacaoActivity";
 
     public static final int TYPE_STACK = -1000;
 

@@ -1,15 +1,19 @@
-package com.example.joao.berrantinho;
+package com.example.joao.berrantinho.features.suplementacao;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.example.joao.berrantinho.BaseFragment;
+import com.example.joao.berrantinho.R;
 import com.example.joao.berrantinho.adapter.SimpleAdapter;
 import com.example.joao.berrantinho.model.Simple;
 import com.example.joao.berrantinho.model.SimpleEnum;
@@ -18,82 +22,72 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
+/**
+ * Created by Joao Carlos on 11/24/17.
+ * Biox Pecuaria Moderna
+ * desenvolvedorberrante@bioxbr.com
+ */
+
+
+public class SuplementacaoFragment extends BaseFragment implements View.OnClickListener {
 
     RecyclerView recyclerView;
     SimpleAdapter adapter;
 
     SimpleEnum simpleEnum;
-
     TextView filterVazio;
     TextView filterRepor;
     TextView filterComProduto;
     TextView filterTodos;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_2);
-
-        simpleEnum = SimpleEnum.A;
-
-        setUpToolbar();
-        setUpViews();
+    public static SuplementacaoFragment newInstance() {
+        return new SuplementacaoFragment();
     }
 
-    private void setUpViews() {
+    @Override
+    public int getFragmentLayout() {
+        return R.layout.fragment_suplementacao;
+    }
 
-        filterVazio = findViewById(R.id.filter_vazio);
-        filterRepor = findViewById(R.id.filter_repor);
-        filterComProduto = findViewById(R.id.filter_com_produto);
-        filterTodos = findViewById(R.id.filter_all);
+    @Override
+    public void setUpCustomViews(View rootView) {
+        recyclerView = rootView.findViewById(R.id.recycler_view);
+
+        filterVazio = rootView.findViewById(R.id.filter_vazio);
+        filterRepor = rootView.findViewById(R.id.filter_repor);
+        filterComProduto = rootView.findViewById(R.id.filter_com_produto);
+        filterTodos = rootView.findViewById(R.id.filter_all);
+    }
+
+    @Override
+    public int getCustomToolbarLayout() {
+        return R.layout.header_filter_suplementacao;
+    }
+
+    @Override
+    public void setUpLayoutListeners() {
+        adapter = new SimpleAdapter();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
 
         filterVazio.setOnClickListener(this);
         filterRepor.setOnClickListener(this);
         filterComProduto.setOnClickListener(this);
         filterTodos.setOnClickListener(this);
 
-        recyclerView = findViewById(R.id.recycler_view);
-
-        adapter = new SimpleAdapter();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(layoutManager);
-    }
-
-    private void setUpToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        updateUI();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void initDependencies() {
+    }
+
+    @Override
+    public void updateUI() {
         adapter.updateElements(generateDumbElements());
-        applyFilter();
     }
-
-    public List<Simple> generateDumbElements() {
-        List<Simple> list = new ArrayList<>();
-        Simple simple;
-
-        String content = getResources().getString(R.string.dumb_text);
-
-        for (int i = 1; i < 10; i++) {
-            String title = String.format(Locale.getDefault(), "Title %02d", i);
-            simple = new Simple(title, content);
-            list.add(simple);
-        }
-        return list;
-    }
-
 
     @Override
     public void onClick(View view) {
@@ -119,6 +113,21 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+
+    public List<Simple> generateDumbElements() {
+        List<Simple> list = new ArrayList<>();
+        Simple simple;
+
+        String content = getResources().getString(R.string.dumb_large_text_I);
+
+        for (int i = 1; i < 10; i++) {
+            String title = String.format(Locale.getDefault(), "Title %02d", i);
+            simple = new Simple(title, content);
+            list.add(simple);
+        }
+        return list;
+    }
+
 
     private void applyFilter() {
         if (simpleEnum == SimpleEnum.A) {

@@ -20,10 +20,24 @@
         <service android:name=".notification.NotificationIntentService" />
 
         <activity
-            android:name=".Main2Activity"
+            android:name=".features.notification.NotificationActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionbar" />
 
+        <activity
+            android:name=".features.suplementacao.SuplementacaoActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionbar" />
+
+        <activity
+            android:name=".features.suplementacao.SuperSuplementacao"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionbar" />
+
+        <activity
+            android:name=".features.toolbar.ToolbarActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionbar" />
     </application>
 
 </manifest>
