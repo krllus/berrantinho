@@ -27,4 +27,9 @@ public class SuperSuplementacao extends BaseActivity {
         BaseFragment suplementacaoFragment = SuplementacaoFragment.newInstance();
         loadContentFragment(suplementacaoFragment);
     }
+
+    @Override
+    public int getActivityCustomLayout() {
+        return R.layout.activity_supersuplementacao;
+    }
 }

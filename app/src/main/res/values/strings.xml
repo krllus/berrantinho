@@ -26,5 +26,6 @@
 
     <string name="dumb_large_text_I">I tried to create a list in my fragment, where I created a card view and using an adapter I populated the list with the card view. But the issue I am facing is, In my android studio XML layout, You can see a margin at both left and right of the screen, while when I installed on my phone, the margin is not seen!!</string>
     <string name="dumb_large_text_II">A Barrier is a virtual view, similar to a Guideline, to which we can constrain objects. The difference between a Barrier and a Guideline is that the position of a Barrier is determined by the dimensions of multiple views. In the case of our example, we don’t know whether textView1 or textView2 will be wider, so we can create a Barrier based upon the widths of these two Views. Then we can constrain textView3 to the Barrier.</string>
+    <string name="activity_fabrica">Fabrica de Suplementos</string>
 
 </resources>

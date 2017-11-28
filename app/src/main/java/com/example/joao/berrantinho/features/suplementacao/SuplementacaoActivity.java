@@ -34,7 +34,7 @@ public class SuplementacaoActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_2);
+        setContentView(R.layout.activity_suplementacao);
 
         simpleEnum = SimpleEnum.A;
 

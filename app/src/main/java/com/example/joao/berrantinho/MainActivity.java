@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.joao.berrantinho.features.notification.NotificationActivity;
-import com.example.joao.berrantinho.features.suplementacao.SuperSuplementacao;
 import com.example.joao.berrantinho.features.suplementacao.SuplementacaoActivity;
 import com.example.joao.berrantinho.features.toolbar.ToolbarActivity;
 
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.launch_suplementacao:
-                intent = new Intent(this, SuperSuplementacao.class);
+                intent = new Intent(this, SuplementacaoActivity.class);
                 startActivity(intent);
                 break;
 

@@ -19,7 +19,7 @@ import android.widget.ProgressBar;
  * joaocarlusferrera at gmail.com
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements BaseActivityToolbarInterface {
+public abstract class BaseActivity extends AppCompatActivity implements BaseActivityDefaultInterface {
 
     private final static String LOG_TAG = BaseActivity.class.getSimpleName();
 
@@ -29,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseActi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.base_activity);
+        setContentView(resolveActivityLayout());
 
         setUpWindowAnimations();
         setUpToolbar();
@@ -37,6 +37,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseActi
         setUpInitialContent();
 
         initDependencies();
+    }
+
+    @Override
+    public int getActivityCustomLayout() {
+        return R.layout.base_activity;
     }
 
     @Override
@@ -48,6 +53,14 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseActi
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    private int resolveActivityLayout() {
+        int layoutId = getActivityCustomLayout();
+        if (layoutId == 0) {
+            throw new Error("you should pass a valid layout id as parameter");
+        }
+        return layoutId;
     }
 
     private void setUpWindowAnimations() {

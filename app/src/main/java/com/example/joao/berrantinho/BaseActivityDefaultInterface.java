@@ -7,6 +7,8 @@ package com.example.joao.berrantinho;
  */
 
 
-public interface BaseFragmentToolbarInterface {
-    int getCustomToolbarLayout();
+interface BaseActivityDefaultInterface {
+    int getActivityTitleResourceId();
+
+    int getActivityCustomLayout();
 }

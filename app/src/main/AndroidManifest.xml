@@ -38,6 +38,11 @@
             android:name=".features.toolbar.ToolbarActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionbar" />
+
+        <activity
+            android:name=".features.fabrica.FabricaActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionbar" />
     </application>
 
 </manifest>

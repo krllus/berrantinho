@@ -1,15 +1,10 @@
 package com.example.joao.berrantinho.features.suplementacao;
 
 import android.graphics.Typeface;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.joao.berrantinho.BaseFragment;
@@ -40,6 +35,8 @@ public class SuplementacaoFragment extends BaseFragment implements View.OnClickL
     TextView filterComProduto;
     TextView filterTodos;
 
+    CardView filterCardContainer;
+
     public static SuplementacaoFragment newInstance() {
         return new SuplementacaoFragment();
     }
@@ -51,17 +48,14 @@ public class SuplementacaoFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void setUpCustomViews(View rootView) {
+        filterCardContainer = rootView.findViewById(R.id.card_filter_container);
+
         recyclerView = rootView.findViewById(R.id.recycler_view);
 
         filterVazio = rootView.findViewById(R.id.filter_vazio);
         filterRepor = rootView.findViewById(R.id.filter_repor);
         filterComProduto = rootView.findViewById(R.id.filter_com_produto);
         filterTodos = rootView.findViewById(R.id.filter_all);
-    }
-
-    @Override
-    public int getCustomToolbarLayout() {
-        return R.layout.header_filter_suplementacao;
     }
 
     @Override

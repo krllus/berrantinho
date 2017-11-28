@@ -48,11 +48,6 @@ public class ToolbarFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Override
-    public int getCustomToolbarLayout() {
-        return R.layout.custom_layout;
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_toolbar:
