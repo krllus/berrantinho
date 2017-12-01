@@ -28,5 +28,19 @@
         android:onClick="onClick"
         android:text="@string/btn_start_toolbar_label" />
 
+    <Button
+        android:id="@+id/launch_bolinha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="@string/btn_start_bolinha_label" />
+
+    <Button
+        android:id="@+id/launch_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="@string/btn_start_dialog_label" />
+
 
 </LinearLayout>

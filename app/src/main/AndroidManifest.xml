@@ -43,6 +43,13 @@
             android:name=".features.fabrica.FabricaActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionbar" />
+
+
+        <activity
+            android:name=".features.bolinha.BolinhaActivity"
+            android:parentActivityName=".MainActivity" />
+
+
     </application>
 
 </manifest>

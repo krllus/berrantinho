@@ -27,21 +27,36 @@
     <!-- TEXT STYLES -->
     <style name="Biox.TextAppearance.Body" parent="@android:style/TextAppearance.Material.Body1">
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_default</item>
     </style>
 
     <style name="Biox.TextAppearance.Title" parent="@android:style/TextAppearance.Material.Title">
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Biox.TextAppearance.SubTitle" parent="@android:style/TextAppearance.Material.Subhead">
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_subtitle</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Biox.TextAppearance.Caption" parent="@android:style/TextAppearance.Material.Caption">
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_caption</item>
     </style>
 
-    <style name="Biox.TextAppearance.Filter" parent="Biox.TextAppearance.Body">
+    <style name="Biox.TextAppearance.Label" parent="@style/Biox.TextAppearance.Body">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Biox.TextAppearance.SubLabel" parent="@style/Biox.TextAppearance.Label">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_caption</item>
+    </style>
+
+    <style name="Biox.TextAppearance.Filter" parent="@style/Biox.TextAppearance.Body">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:clickable">true</item>
@@ -51,4 +66,9 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
 </resources>
