@@ -15,10 +15,6 @@ import com.example.joao.berrantinho.adapter.SimpleAdapter;
 import com.example.joao.berrantinho.model.Simple;
 import com.example.joao.berrantinho.model.SimpleEnum;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 public class SuplementacaoActivity extends AppCompatActivity implements View.OnClickListener {
 
     RecyclerView recyclerView;
@@ -77,22 +73,9 @@ public class SuplementacaoActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.updateElements(generateDumbElements());
-        applyFilter();
-    }
-
-    public List<Simple> generateDumbElements() {
-        List<Simple> list = new ArrayList<>();
-        Simple simple;
-
         String content = getResources().getString(R.string.dumb_large_text_I);
-
-        for (int i = 1; i < 10; i++) {
-            String title = String.format(Locale.getDefault(), "Title %02d", i);
-            simple = new Simple(title, content);
-            list.add(simple);
-        }
-        return list;
+        adapter.updateElements(Simple.generateDumbElements(content));
+        applyFilter();
     }
 
 

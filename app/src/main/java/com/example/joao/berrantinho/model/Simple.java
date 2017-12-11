@@ -1,5 +1,9 @@
 package com.example.joao.berrantinho.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 /**
  * Created by Joao Carlos on 11/22/17.
  * Biox Pecuaria Moderna
@@ -22,6 +26,18 @@ public class Simple {
 
     public String getContent() {
         return content;
+    }
+
+    public static List<Simple> generateDumbElements(String content) {
+        List<Simple> list = new ArrayList<>();
+        Simple simple;
+
+        for (int i = 1; i < 10; i++) {
+            String title = String.format(Locale.getDefault(), "Title %02d", i);
+            simple = new Simple(title, content);
+            list.add(simple);
+        }
+        return list;
     }
 
 }

@@ -1,7 +1,9 @@
 package com.example.joao.berrantinho.adapter;
 
 
+import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,7 +113,7 @@ public class BolinhaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                openDialog();
             }
         });
 
@@ -153,9 +155,20 @@ public class BolinhaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                openDialog();
             }
         });
+    }
+
+    private void openDialog() {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment previous = fragmentManager.findFragmentByTag(SimpleDialog.DIALOG_TAG);
+        if (previous != null) {
+            fragmentTransaction.remove(previous);
+        }
+        fragmentTransaction.addToBackStack(null);
+        SimpleDialog dialog = new SimpleDialog();
+        dialog.show(fragmentTransaction, SimpleDialog.DIALOG_TAG);
     }
 
     @Override

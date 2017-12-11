@@ -30,7 +30,6 @@
     <string name="dumb_large_text_II">A Barrier is a virtual view, similar to a Guideline, to which we can constrain objects. The difference between a Barrier and a Guideline is that the position of a Barrier is determined by the dimensions of multiple views. In the case of our example, we don’t know whether textView1 or textView2 will be wider, so we can create a Barrier based upon the widths of these two Views. Then we can constrain textView3 to the Barrier.</string>
 
     <string name="activity_fabrica">Fabrica de Suplementos</string>
-    <string name="item_fabricasuplementos_produto_name_label">Produto:</string>
     <string name="item_fabricasuplementos_batida_volume_label">Volume Batida:</string>
     <string name="item_fabricasuplementos_embalagem_label">Embalagem</string>
     <string name="item_fabricasuplementos_embalagem_quantidade_label">Quantidade Minima:</string>
@@ -44,6 +43,14 @@
     <string name="dialog_btn_nao">nao</string>
     <string name="dialog_btn_sim">sim</string>
     <string name="dialog_message">Deseja misturar com esse produto?</string>
+
+    <string name="item_fabricasuplementos_produto_name_label">Produto:</string>
+    <string name="item_fabricasuplementos_volumes_label">Volumes:</string>
+    <string name="item_fabricasuplementos_volume_embalagem_label">Embalagem</string>
+    <string name="item_fabricasuplementos_volume_batida_label">Batida</string>
+    <string name="item_fabricasuplementos_ingredientes_label">ingredientes</string>
+    <string name="item_fabricasuplementos_ingredientes_dummy_list">Ingrediente 01 - 10kg\nIngrediente 02 - 30kg\nIngrediente 04 - 40kg\nIngrediente 05 - 30kg</string>
+    <string name="badNumber">numero invalido</string>
 
 
 </resources>

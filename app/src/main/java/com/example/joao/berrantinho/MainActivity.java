@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.joao.berrantinho.dialog.SimpleDialog;
 import com.example.joao.berrantinho.features.bolinha.BolinhaActivity;
+import com.example.joao.berrantinho.features.databinding.NumbersActivity;
 import com.example.joao.berrantinho.features.notification.NotificationActivity;
 import com.example.joao.berrantinho.features.suplementacao.SuplementacaoActivity;
 import com.example.joao.berrantinho.features.toolbar.ToolbarActivity;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, NotificationActivity.class);
                 startActivity(intent);
                 break;
+
             case R.id.launch_suplementacao:
                 intent = new Intent(this, SuplementacaoActivity.class);
                 startActivity(intent);
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, ToolbarActivity.class);
                 startActivity(intent);
                 break;
+
             case R.id.launch_bolinha:
                 intent = new Intent(this, BolinhaActivity.class);
                 startActivity(intent);
@@ -46,6 +49,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.launch_dialog:
                 showSimpleDialog();
+                break;
+
+            case R.id.launch_data_binding:
+                intent = new Intent(this, NumbersActivity.class);
+                startActivity(intent);
                 break;
         }
     }
