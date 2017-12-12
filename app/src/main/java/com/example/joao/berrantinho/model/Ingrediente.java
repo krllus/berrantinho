@@ -57,16 +57,20 @@ public class Ingrediente implements Observable {
         pcr.remove(onPropertyChangedCallback);
     }
 
+    public static Ingrediente createDumbElement(String nome, Double quantidade) {
+        Ingrediente ingrediente = new Ingrediente();
+        ingrediente.setNome(nome);
+        ingrediente.setQuantidade(quantidade);
+        return ingrediente;
+    }
+
     public static List<Ingrediente> createDumbElements(int quantidade) {
         List<Ingrediente> lista = new ArrayList<>();
-        Ingrediente ingrediente;
 
         for (int i = 0; i < quantidade; i++) {
-            ingrediente = new Ingrediente();
-            ingrediente.setNome(String.format(Locale.getDefault(), "Nome %02d", i));
-            Double value = Math.random() * 5 + 1;
-            ingrediente.setQuantidade(value);
-            lista.add(ingrediente);
+            String nome = String.format(Locale.getDefault(), "Nome %02d", i);
+            Double valor = Math.random() * 5 + 1;
+            lista.add(createDumbElement(nome, valor));
         }
 
         return lista;
