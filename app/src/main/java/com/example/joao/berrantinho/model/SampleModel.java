@@ -1,11 +1,8 @@
 package com.example.joao.berrantinho.model;
 
 import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
-import android.databinding.InverseBindingAdapter;
 import android.databinding.Observable;
 import android.databinding.PropertyChangeRegistry;
-import android.widget.EditText;
 
 import com.example.joao.berrantinho.BR;
 
@@ -61,9 +58,10 @@ public class SampleModel implements Observable {
         pcr.notifyChange(this, BR.numberTwo);
     }
 
-    public String sum(Double numberOne, Double numberTwo) {
+    @Bindable({"numberOne", "numberTwo"})
+    public String getNumbersSum() {
         Double s = numberOne + numberTwo;
-        return s.toString();
+        return String.format(Locale.getDefault(), "%.2f", s);
     }
 
     @Override
@@ -76,23 +74,23 @@ public class SampleModel implements Observable {
         pcr.remove(callback);
     }
 
-    @BindingAdapter({"android:text"})
-    public static void setText(EditText editText, Double value) {
-        final CharSequence oldText = editText.getText();
-        if (!haveContentsChanged(value, oldText))
-            return;
-        editText.setText(String.format(Locale.getDefault(), "%.2f", value));
-    }
-
-    @InverseBindingAdapter(attribute = "android:text")
-    public static Double getTextString(EditText editText) {
-        String txt = editText.getText().toString();
-        return "".equals(txt) ? 0d : Double.parseDouble(txt.replace(",", "."));
-    }
-
-    private static boolean haveContentsChanged(Double value, CharSequence oldText) {
-        String oldContent = oldText.toString();
-        Double oldDouble = "".equals(oldContent) ? 0d : Double.parseDouble(oldContent);
-        return !oldDouble.equals(value);
-    }
+//    @BindingAdapter({"android:text"})
+//    public static void setText(EditText editText, Double value) {
+//        final CharSequence oldText = editText.getText();
+//        if (!haveContentsChanged(value, oldText))
+//            return;
+//        editText.setText(String.format(Locale.getDefault(), "%.2f", value));
+//    }
+//
+//    @InverseBindingAdapter(attribute = "android:text")
+//    public static Double getTextString(EditText editText) {
+//        String txt = editText.getText().toString();
+//        return "".equals(txt) ? 0d : Double.parseDouble(txt.replace(",", "."));
+//    }
+//
+//    private static boolean haveContentsChanged(Double value, CharSequence oldText) {
+//        String oldContent = oldText.toString();
+//        Double oldDouble = "".equals(oldContent) ? 0d : Double.parseDouble(oldContent);
+//        return !oldDouble.equals(value);
+//    }
 }

@@ -5,6 +5,8 @@ import android.databinding.InverseMethod;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.joao.berrantinho.R;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -42,8 +44,8 @@ public class Converter {
             return numberFormat.parse(value).doubleValue();
         } catch (ParseException e) {
             Resources resources = view.getResources();
-            //String errStr = resources.getString(R.string.badNumber);
-            view.setError("error");
+            String errStr = resources.getString(R.string.badNumber);
+            view.setError(errStr);
             return oldValue;
         }
     }
