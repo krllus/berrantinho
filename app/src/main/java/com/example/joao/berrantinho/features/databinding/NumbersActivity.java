@@ -8,8 +8,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.joao.berrantinho.R;
-import com.example.joao.berrantinho.databinding.ActivityNumbersBinding;
 
+import com.example.joao.berrantinho.databinding.SampleItemBinding;
 import com.example.joao.berrantinho.model.SampleModel;
 
 import java.util.Locale;
@@ -28,8 +28,7 @@ public class NumbersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_numbers);
-        ActivityNumbersBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_numbers);
+        SampleItemBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_numbers);
         data = new SampleModel("sample");
         binding.setData(data);
     }

@@ -10,6 +10,7 @@ import android.view.View;
 import com.example.joao.berrantinho.dialog.SimpleDialog;
 import com.example.joao.berrantinho.features.bolinha.BolinhaActivity;
 import com.example.joao.berrantinho.features.databinding.NumbersActivity;
+import com.example.joao.berrantinho.features.ingredients.IngredientsActivity;
 import com.example.joao.berrantinho.features.notification.NotificationActivity;
 import com.example.joao.berrantinho.features.suplementacao.SuplementacaoActivity;
 import com.example.joao.berrantinho.features.toolbar.ToolbarActivity;
@@ -53,6 +54,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.launch_data_binding:
                 intent = new Intent(this, NumbersActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.launch_ingredients:
+                intent = new Intent(this, IngredientsActivity.class);
                 startActivity(intent);
                 break;
         }

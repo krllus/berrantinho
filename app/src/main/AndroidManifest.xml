@@ -53,6 +53,11 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionbar" />
 
+        <activity
+            android:name=".features.ingredients.IngredientsActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionbar" />
+
 
     </application>
 
