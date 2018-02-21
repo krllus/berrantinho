@@ -14,5 +14,12 @@
     <color name="marrom">#4e342e</color>
     <color name="marrom_dark">#3e2723</color>
 
+    <color name="color_palha">#efb728</color>
+    <color name="color_palha_disabled">#FFffe0b2</color>
+    <color name="color_marrom">#4e342e</color>
+    <color name="color_marrom_disabled">#FFa1887f</color>
+    <color name="marrom_disabled">#d7ccc8</color>
+    <color name="marrom_pressed">#FFa1887f</color>
+
     <color name="light_gray">#e3e3e3</color>
 </resources>

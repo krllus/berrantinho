@@ -14,5 +14,12 @@
     <dimen name="text_subtitle">16sp</dimen>
     <dimen name="text_default">14sp</dimen>
     <dimen name="text_caption">12sp</dimen>
+    <dimen name="btn_min_width">40dp</dimen>
+    <dimen name="btn_min_height">40dp</dimen>
+    <dimen name="edt_min_height">40dp</dimen>
+    <dimen name="saco_miniature_size">40dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="dialog_button_height">32dp</dimen>
 
 </resources>

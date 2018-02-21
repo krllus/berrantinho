@@ -51,6 +51,22 @@
     <string name="item_fabricasuplementos_ingredientes_label">ingredientes</string>
     <string name="item_fabricasuplementos_ingredientes_dummy_list">Ingrediente 01 - 10kg\nIngrediente 02 - 30kg\nIngrediente 04 - 40kg\nIngrediente 05 - 30kg</string>
     <string name="badNumber">numero invalido</string>
+    <string name="suplementacao_btn_salvar_label">salvar</string>
+    <string name="suplementacao_btn_finalizar_label">finalizar</string>
+    <string name="suplementacao_saco_parcial_label">saco parcial</string>
+    <string name="suplementacao_btn_plus_label">+</string>
+    <string name="suplementacao_btn_minus_label">-</string>
+    <string name="suplementacao_sacos_cheios_label">sacos cheios</string>
+    <string name="suplementacao_abastecer_cocho_label">abastecer cocho</string>
+    <string name="suplementacao_spn_produto_label">produto</string>
+    <string name="suplementacao_spn_localidade_label">localidade</string>
+    <string name="title_activity_flower">FlowerActivity</string>
+    <string name="label">LabelForAutoComplete</string>
+    <string name="show_number">show number</string>
+
+    <!-- authentication -->
+    <string name="account_type">com.example.joao.berrantinho</string>
+    <string name="title_sign_in">Login</string>
 
 
 </resources>

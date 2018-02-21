@@ -4,6 +4,14 @@
 
     <style name="AppTheme.NoActionbar" parent="AppTheme.Base.NoActionbar" />
 
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/color_marrom</item>
+        <item name="android:textColorPrimary">@color/color_marrom</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Biox.Dialog.Button</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Biox.Dialog.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Biox.Dialog.Button</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme.Base.NoActionbar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -23,6 +31,24 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <!-- SPLASH SCREEN -->
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+    <!-- BOTOES -->
+    <style name="Biox.Button.Palha" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_palha</item>
+        <item name="android:textColor">@color/button_text_color</item>
+        <item name="android:minHeight">@dimen/btn_min_height</item>
+    </style>
+
+    <style name="Biox.Dialog.Button" parent="Biox.Button.Palha">
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:minHeight">@dimen/dialog_button_height</item>
+    </style>
 
     <!-- TEXT STYLES -->
     <style name="Biox.TextAppearance.Body" parent="@android:style/TextAppearance.Material.Body1">
@@ -70,5 +96,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>

@@ -29,7 +29,7 @@ public class BolinhaActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
 
-        adapter = new BolinhaAdapter(getFragmentManager());
+        adapter = new BolinhaAdapter(getSupportFragmentManager());
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setAdapter(adapter);

@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.joao.berrantinho">
 
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+        <activity
+            android:name=".SplashScreen"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,47 +27,64 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".notification.NotificationIntentService" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".authentication.AuthenticationActivity"
+            android:label="@string/title_sign_in"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
             android:name=".features.notification.NotificationActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionbar" />
-
         <activity
             android:name=".features.suplementacao.SuplementacaoActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionbar" />
-
         <activity
             android:name=".features.suplementacao.SuperSuplementacao"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionbar" />
-
         <activity
             android:name=".features.toolbar.ToolbarActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionbar" />
-
         <activity
             android:name=".features.fabrica.FabricaActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionbar" />
-
         <activity
             android:name=".features.bolinha.BolinhaActivity"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".features.databinding.NumbersActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionbar" />
-
         <activity
             android:name=".features.ingredients.IngredientsActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionbar" />
+        <activity
+            android:name=".features.flower.FlowerActivity"
+            android:label="@string/title_activity_flower"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".features.text.TextSampleActivity" />
 
+        <service android:name=".notification.NotificationIntentService" />
+
+        <service android:name=".authentication.AuthenticatorService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
 
     </application>
 

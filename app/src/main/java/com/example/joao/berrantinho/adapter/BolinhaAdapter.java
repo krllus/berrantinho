@@ -1,9 +1,7 @@
 package com.example.joao.berrantinho.adapter;
 
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +31,7 @@ public class BolinhaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int TYPE_BOLINHA_PEQUENA = 0;
     private static final int TYPE_BOLINHA_GIGANTE = 1;
 
-    int expandedCommentPosition = RecyclerView.NO_POSITION;
+    private int expandedCommentPosition = RecyclerView.NO_POSITION;
     private FragmentManager fragmentManager;
 
     public BolinhaAdapter(FragmentManager supportFragmentManager) {
@@ -161,14 +159,9 @@ public class BolinhaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     private void openDialog() {
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment previous = fragmentManager.findFragmentByTag(SimpleDialog.DIALOG_TAG);
-        if (previous != null) {
-            fragmentTransaction.remove(previous);
-        }
-        fragmentTransaction.addToBackStack(null);
+
         SimpleDialog dialog = new SimpleDialog();
-        dialog.show(fragmentTransaction, SimpleDialog.DIALOG_TAG);
+        dialog.show(fragmentManager, SimpleDialog.DIALOG_TAG);
     }
 
     @Override
