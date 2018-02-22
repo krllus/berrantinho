@@ -2,39 +2,49 @@ package com.example.joao.berrantinho;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.joao.berrantinho.authentication.AccountGeneral;
-import com.example.joao.berrantinho.authentication.AuthenticationActivity;
-import com.google.android.gms.common.AccountPicker;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
+import com.example.joao.berrantinho.authentication.AuthenticatorActivity;
+import com.example.joao.berrantinho.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.lang.ref.WeakReference;
 
 /**
  * Created by João Carlos on 2/21/18.
  * Biox Pecuaria Moderna
  * desenvolvedorberrante@bioxbr.com
+ * based on http://www.zoftino.com/android-account-manager-&-create-custom-account-type
+ * other option: https://stackoverflow.com/questions/39804004/google-plus-sign-in-account-selection-dialog-issue
+ * other poption: https://stackoverflow.com/questions/31915642/android-login-account-authenticator-vs-manual-authentication
+ * account chooser:https://github.com/Udinic/AccountAuthenticator/blob/master/exampleApp/src/main/java/com/udinic/accounts_example/Main1.java
  */
 
 public class SplashScreen extends AppCompatActivity {
-    private static final int REQUEST_GOOGLE_PLAY_SERVICES = 0;
-    private static final int REQUEST_AUTHENTICATION = 1;
-    private static final int REQUEST_CHECK_ACCOUNT = 2;
+    private static final int REQUEST_AUTHENTICATION = 0;
+    private static final int REQUEST_ACCOUNT = 1;
 
     private static final String LOG_TAG = SplashScreen.class.getSimpleName();
 
-    private LoginAsynkTask loginAsynkTask;
+    private static final String STATE_DIALOG = "state_dialog";
+    private static final String STATE_INVALIDATE = "state_invalidate";
+    private AccountManager mAccountManager;
+    private AlertDialog mAlertDialog;
+    private boolean mInvalidate;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -46,17 +56,42 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(startupIntent);
                 }
                 break;
-            case REQUEST_CHECK_ACCOUNT:
+
+            case REQUEST_ACCOUNT:
                 if (resultCode == RESULT_OK) {
-                    Bundle bundle = data.getExtras();
-                    Account[] accounts;
-                    if (bundle != null && bundle.containsKey(AccountManager.KEY_ACCOUNTS)) {
-                        accounts = (Account[]) bundle.get(AccountManager.KEY_ACCOUNTS);
-                        EventBus.getDefault().post(accounts);
+                    AccountManager accountManager = AccountManager.get(this);
+
+                    String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+                    String accountType = data.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE);
+
+                    //run though all accounts, get the one with name and selected type
+                    Account[] accounts = accountManager.getAccounts();
+                    for (Account account : accounts) {
+                        if (account.name.equals(accountName) && account.type.equals(accountType)) {
+                            EventBus.getDefault().post(account);
+                            break;
+                        }
                     }
                 }
                 break;
         }
+        finish();
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mAccountManager = AccountManager.get(this);
+
+        if (savedInstanceState != null) {
+            boolean showDialog = savedInstanceState.getBoolean(STATE_DIALOG);
+            boolean invalidate = savedInstanceState.getBoolean(STATE_INVALIDATE);
+            if (showDialog) {
+                showAccountPicker(AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS, invalidate);
+            }
+        }
+
+        checkUserLoggedIn();
     }
 
     @Override
@@ -71,81 +106,221 @@ public class SplashScreen extends AppCompatActivity {
         super.onStop();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        checkLoginTask();
-    }
-
-    private void checkLoginTask() {
-
-        if (!isPlayServicesAvailable()) {
-            Toast.makeText(this, "play service not available", Toast.LENGTH_SHORT).show();
-            return;
-        } else
-            Log.d(LOG_TAG, "play service available");
-
-        String accountType = getResources().getString(R.string.account_type);
-
-        accountType = "com.google";
-        Intent intent = AccountPicker.newChooseAccountIntent(null,
-                null, new String[]{accountType},
-                true, null, null, null, null);
-        startActivityForResult(intent, REQUEST_CHECK_ACCOUNT);
-    }
-
     @Subscribe
-    public void onAccountReceived(Account[] accounts) {
-        if (accounts != null && accounts.length > 0) {
+    public void onAccountReceived(Account account) {
+        Log.d(LOG_TAG, "acc received");
+        if (account == null) {
+            Toast.makeText(this, "acc null", Toast.LENGTH_SHORT).show();
+            Intent startupIntent = new Intent(this, AuthenticatorActivity.class);
+            startActivityForResult(startupIntent, REQUEST_AUTHENTICATION);
+        } else {
             Intent startupIntent = new Intent(this, MainActivity.class);
             startupIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(startupIntent);
             finish();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mAlertDialog != null && mAlertDialog.isShowing()) {
+            outState.putBoolean(STATE_DIALOG, true);
+            outState.putBoolean(STATE_INVALIDATE, mInvalidate);
+        }
+    }
+
+
+    private void checkUserLoggedIn() {
+        String accountType = AccountGeneral.getAccountType(this);
+
+        if (!Utils.isPlayServicesAvailable(this)) {
+            Toast.makeText(this, "google play services not available in device.", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String accountName = sharedPreferences.getString(getString(R.string.account_name), "");
+
+        final Account availableAccounts[] = mAccountManager.getAccountsByType(AccountGeneral.getAccountType(this));
+        for (Account account : availableAccounts) {
+            if (account.name.equals(accountName) && account.type.equals(accountType)) {
+                getExistingAccountAuthToken(account, accountType);
+            }
+        }
+
+        showAccountPicker(accountType, false);
+
+//        Intent intent = AccountPicker.newChooseAccountIntent(
+//                null,               //selected account
+//                null,               // allowable accounts
+//                new String[]{accountType},  //allowable account types
+//                true,                    //always prompt for account
+//                null,                    //description override text
+//                null,                   //add acc auth token type
+//                null,               //add acc required features
+//                null                 //add acc options
+//        );
+//
+//        startActivityForResult(intent, REQUEST_ACCOUNT);
+    }
+
+    /**
+     * Add new account to the account manager
+     *
+     * @param accountType
+     * @param authTokenType
+     */
+    private void addNewAccount(String accountType, String authTokenType) {
+        final AccountManagerFuture<Bundle> future = mAccountManager.addAccount(
+                accountType, authTokenType, null, null,
+                this, new AccountManagerCallback<Bundle>() {
+                    @Override
+                    public void run(AccountManagerFuture<Bundle> future) {
+                        try {
+                            Bundle bnd = future.getResult();
+                            showMessage("Account was created");
+                            Log.d("udinic", "AddNewAccount Bundle is " + bnd);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            showMessage(e.getMessage());
+                        }
+                    }
+                }, null);
+    }
+
+    /**
+     * Show all the accounts registered on the account manager. Request an auth token upon user select.
+     */
+    private void showAccountPicker(final String authTokenType, final boolean invalidate) {
+        mInvalidate = invalidate;
+        final Account availableAccounts[] = mAccountManager.getAccountsByType(AccountGeneral.getAccountType(this));
+
+        if (availableAccounts.length == 0) {
+
         } else {
-            Intent startupIntent = new Intent(this, AuthenticationActivity.class);
-            startActivityForResult(startupIntent, REQUEST_AUTHENTICATION);
+            String name[] = new String[availableAccounts.length];
+            for (int i = 0; i < availableAccounts.length; i++) {
+                name[i] = availableAccounts[i].name;
+            }
+
+            // Account picker
+            mAlertDialog = new AlertDialog.Builder(this)
+                    .setTitle("Pick Account")
+                    .setAdapter(new ArrayAdapter<>(getBaseContext(),
+                                    android.R.layout.simple_list_item_1, name),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (invalidate)
+                                        invalidateAuthToken(availableAccounts[which], authTokenType);
+                                    else
+                                        getExistingAccountAuthToken(availableAccounts[which], authTokenType);
+                                }
+                            }).create();
+            mAlertDialog.show();
         }
     }
 
-    private static class LoginAsynkTask extends AsyncTask<Void, Void, Account> {
+    /**
+     * Get the auth token for an existing account on the AccountManager
+     *
+     * @param account
+     * @param authTokenType
+     */
+    private void getExistingAccountAuthToken(Account account, String authTokenType) {
+        final AccountManagerFuture<Bundle> future = mAccountManager.getAuthToken(account, authTokenType, null, this, null, null);
 
-        private WeakReference<Context> contextWeakReference;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Bundle bnd = future.getResult();
+                    final String authtoken = bnd.getString(AccountManager.KEY_AUTHTOKEN);
 
-        LoginAsynkTask(Context context) {
-            this.contextWeakReference = new WeakReference<>(context);
-        }
+                    if (authtoken == null) {
 
-        @Override
-        protected Account doInBackground(Void... voids) {
+                    }
 
-            Context context = contextWeakReference.get();
-            if (context == null) return null;
-
-            AccountManager accountManager = AccountManager.get(context);
-            Account[] accounts = accountManager.getAccountsByType(AccountGeneral.getAccountType(context));
-
-            //set selected account
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Account result) {
-            super.onPostExecute(result);
-            EventBus.getDefault().post(result);
-        }
+                    showMessage((authtoken != null) ? "SUCCESS!\ntoken: " + authtoken : "FAIL");
+                    Log.d("udinic", "GetToken Bundle is " + bnd);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    showMessage(e.getMessage());
+                }
+            }
+        }).start();
     }
 
-    private boolean isPlayServicesAvailable() {
+    /**
+     * Invalidates the auth token for the account
+     *
+     * @param account
+     * @param authTokenType
+     */
+    private void invalidateAuthToken(final Account account, String authTokenType) {
+        final AccountManagerFuture<Bundle> future = mAccountManager.getAuthToken(account, authTokenType, null, this, null, null);
 
-        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-        int errorCode = googleApiAvailability.isGooglePlayServicesAvailable(this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Bundle bnd = future.getResult();
 
-        switch (errorCode) {
-            case ConnectionResult.SUCCESS:
-                return true;
-            default:
-                return false;
-        }
+                    final String authtoken = bnd.getString(AccountManager.KEY_AUTHTOKEN);
+                    mAccountManager.invalidateAuthToken(account.type, authtoken);
+                    showMessage(account.name + " invalidated");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    showMessage(e.getMessage());
+                }
+            }
+        }).start();
     }
+
+    /**
+     * Get an auth token for the account.
+     * If not exist - add it and then return its auth token.
+     * If one exist - return its auth token.
+     * If more than one exists - show a picker and return the select account's auth token.
+     *
+     * @param accountType
+     * @param authTokenType
+     */
+    private void getTokenForAccountCreateIfNeeded(String accountType, String authTokenType) {
+        final AccountManagerFuture<Bundle> future = mAccountManager.getAuthTokenByFeatures(accountType, authTokenType, null, this, null, null,
+                new AccountManagerCallback<Bundle>() {
+                    @Override
+                    public void run(AccountManagerFuture<Bundle> future) {
+                        Bundle bnd = null;
+                        try {
+                            bnd = future.getResult();
+                            final String authtoken = bnd.getString(AccountManager.KEY_AUTHTOKEN);
+                            showMessage(((authtoken != null) ? "SUCCESS!\ntoken: " + authtoken : "FAIL"));
+                            Log.d("udinic", "GetTokenForAccount Bundle is " + bnd);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            showMessage(e.getMessage());
+                        }
+                    }
+                }
+                , null);
+    }
+
+    private void showMessage(final String msg) {
+        if (TextUtils.isEmpty(msg))
+            return;
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

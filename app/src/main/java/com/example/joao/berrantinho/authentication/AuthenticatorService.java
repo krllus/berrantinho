@@ -13,7 +13,7 @@ import android.os.IBinder;
 public class AuthenticatorService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
-        Authenticator authenticator = new Authenticator(this);
+        AccountAuthenticator authenticator = new AccountAuthenticator(this);
         return authenticator.getIBinder();
     }
 }

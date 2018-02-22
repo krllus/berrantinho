@@ -9,7 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
+
+import java.util.concurrent.ThreadLocalRandom;
+
+import static android.accounts.AccountManager.KEY_BOOLEAN_RESULT;
+import static com.example.joao.berrantinho.authentication.AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS_LABEL;
+import static com.example.joao.berrantinho.authentication.AccountGeneral.AUTHTOKEN_TYPE_READ_ONLY_LABEL;
 
 /**
  * Created by João Carlos on 2/21/18.
@@ -17,12 +22,11 @@ import android.util.Log;
  * desenvolvedorberrante@bioxbr.com
  */
 
-public class Authenticator extends AbstractAccountAuthenticator {
+public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
     private Context context;
-    private String LOG_TAG = Authenticator.class.getSimpleName();
 
-    Authenticator(Context context) {
+    AccountAuthenticator(Context context) {
         super(context);
         this.context = context;
     }
@@ -34,13 +38,10 @@ public class Authenticator extends AbstractAccountAuthenticator {
 
     @Override
     public Bundle addAccount(AccountAuthenticatorResponse response, String accountType, String authTokenType, String[] requiredFeatures, Bundle options) throws NetworkErrorException {
-
-        Log.d(LOG_TAG,"add account");
-
-        final Intent intent = new Intent(context, AuthenticationActivity.class);
-        intent.putExtra(AuthenticationActivity.ARG_ACCOUNT_TYPE, accountType);
-        intent.putExtra(AuthenticationActivity.ARG_AUTH_TYPE, authTokenType);
-        intent.putExtra(AuthenticationActivity.ARG_IS_ADDING_NEW_ACCOUNT, true);
+        final Intent intent = new Intent(context, AuthenticatorActivity.class);
+        intent.putExtra(AuthenticatorActivity.ARG_ACCOUNT_TYPE, accountType);
+        intent.putExtra(AuthenticatorActivity.ARG_AUTH_TYPE, authTokenType);
+        intent.putExtra(AuthenticatorActivity.ARG_IS_ADDING_NEW_ACCOUNT, true);
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
         final Bundle bundle = new Bundle();
         bundle.putParcelable(AccountManager.KEY_INTENT, intent);
@@ -54,34 +55,21 @@ public class Authenticator extends AbstractAccountAuthenticator {
 
     @Override
     public Bundle getAuthToken(AccountAuthenticatorResponse response, Account account, String authTokenType, Bundle options) throws NetworkErrorException {
-        Log.d(LOG_TAG,"> getAuthToken");
-
-        // If the caller requested an authToken type we don't support, then
-        // return an error
-        if (!authTokenType.equals(AccountGeneral.AUTHTOKEN_TYPE_READ_ONLY) && !authTokenType.equals(AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS)) {
-            final Bundle result = new Bundle();
-            result.putString(AccountManager.KEY_ERROR_MESSAGE, "invalid authTokenType");
-            return result;
-        }
-
         // Extract the username and password from the Account Manager, and ask
         // the server for an appropriate AuthToken.
         final AccountManager am = AccountManager.get(context);
 
         String authToken = am.peekAuthToken(account, authTokenType);
 
-        Log.d(LOG_TAG,"> peekAuthToken returned - " + authToken);
-
         // Lets give another try to authenticate the user
         if (TextUtils.isEmpty(authToken)) {
             final String password = am.getPassword(account);
             if (password != null) {
-                try {
-                    Log.d(LOG_TAG,"> re-authenticating with the existing password");
-                    authToken = "hahahoho";
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                //authToken = sServerAuthenticate.userSignIn(account.name, password, authTokenType);
+                int min = 1;
+                int max = 999;
+                int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+                authToken = "token_" + randomNum;
             }
         }
 
@@ -96,12 +84,11 @@ public class Authenticator extends AbstractAccountAuthenticator {
 
         // If we get here, then we couldn't access the user's password - so we
         // need to re-prompt them for their credentials. We do that by creating
-        // an intent to display our AuthenticationActivity.
-        final Intent intent = new Intent(context, AuthenticationActivity.class);
+        // an intent to display our AuthenticatorActivity.
+        final Intent intent = new Intent(context, AuthenticatorActivity.class);
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
-        intent.putExtra(AuthenticationActivity.ARG_ACCOUNT_TYPE, account.type);
-        intent.putExtra(AuthenticationActivity.ARG_AUTH_TYPE, authTokenType);
-        intent.putExtra(AuthenticationActivity.ARG_ACCOUNT_NAME, account.name);
+        intent.putExtra(AuthenticatorActivity.ARG_ACCOUNT_TYPE, account.type);
+        intent.putExtra(AuthenticatorActivity.ARG_AUTH_TYPE, authTokenType);
         final Bundle bundle = new Bundle();
         bundle.putParcelable(AccountManager.KEY_INTENT, intent);
         return bundle;
@@ -110,9 +97,9 @@ public class Authenticator extends AbstractAccountAuthenticator {
     @Override
     public String getAuthTokenLabel(String authTokenType) {
         if (AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS.equals(authTokenType))
-            return AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS_LABEL;
+            return AUTHTOKEN_TYPE_FULL_ACCESS_LABEL;
         else if (AccountGeneral.AUTHTOKEN_TYPE_READ_ONLY.equals(authTokenType))
-            return AccountGeneral.AUTHTOKEN_TYPE_READ_ONLY_LABEL;
+            return AUTHTOKEN_TYPE_READ_ONLY_LABEL;
         else
             return authTokenType + " (Label)";
     }
@@ -125,7 +112,7 @@ public class Authenticator extends AbstractAccountAuthenticator {
     @Override
     public Bundle hasFeatures(AccountAuthenticatorResponse response, Account account, String[] features) throws NetworkErrorException {
         final Bundle result = new Bundle();
-        result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, false);
+        result.putBoolean(KEY_BOOLEAN_RESULT, false);
         return result;
     }
 }

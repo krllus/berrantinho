@@ -19,7 +19,7 @@ import com.example.joao.berrantinho.R;
  * desenvolvedorberrante@bioxbr.com
  */
 
-public class AuthenticationActivity extends AccountAuthenticatorActivity {
+public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
     public final static String ARG_ACCOUNT_TYPE = "ACCOUNT_TYPE";
     public final static String ARG_AUTH_TYPE = "AUTH_TYPE";
@@ -31,8 +31,6 @@ public class AuthenticationActivity extends AccountAuthenticatorActivity {
     public final static String PARAM_USER_PASS = "USER_PASS";
 
     private final int REQ_SIGNUP = 1;
-
-    private final String TAG = this.getClass().getSimpleName();
 
     private AccountManager mAccountManager;
     private String mAuthTokenType;
@@ -47,10 +45,10 @@ public class AuthenticationActivity extends AccountAuthenticatorActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
         setContentView(R.layout.activity_login);
-        mAccountManager = AccountManager.get(getBaseContext());
+        mAccountManager = AccountManager.get(this);
 
         String accountName = getIntent().getStringExtra(ARG_ACCOUNT_NAME);
         mAuthTokenType = getIntent().getStringExtra(ARG_AUTH_TYPE);
@@ -70,7 +68,6 @@ public class AuthenticationActivity extends AccountAuthenticatorActivity {
     }
 
     public void submit() {
-
         final String userName = ((EditText) findViewById(R.id.username_content)).getText().toString();
         final String userPass = ((EditText) findViewById(R.id.password_content)).getText().toString();
 
@@ -91,26 +88,34 @@ public class AuthenticationActivity extends AccountAuthenticatorActivity {
     }
 
     private void finishLogin(Intent intent) {
-        Log.d("udinic", TAG + "> finishLogin");
-
         String accountName = intent.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
         String accountPassword = intent.getStringExtra(PARAM_USER_PASS);
         final Account account = new Account(accountName, intent.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE));
-
         if (getIntent().getBooleanExtra(ARG_IS_ADDING_NEW_ACCOUNT, false)) {
-            Log.d("udinic", TAG + "> finishLogin > addAccountExplicitly");
             String authtoken = intent.getStringExtra(AccountManager.KEY_AUTHTOKEN);
             String authtokenType = mAuthTokenType;
+
+            //todo create bundle with extra fields
+            //https://stackoverflow.com/questions/7063280/store-additional-data-in-android-account-manager
+            // example below
+            /*
+
+            final Bundle extraData = new Bundle();
+            bundle.putString("user_email", email);
+            mAccountManager.addAccountExplicitly(account, accountPassword, bundle);
+
+            String username = account.name;
+            String password = mAccountManager.getPassword(account);
+            String userEmail = mAccountManager.getUserData(account, "user_email");
+            */
 
             // Creating the account on the device and setting the auth token we got
             // (Not setting the auth token will cause another call to the server to authenticate the user)
             mAccountManager.addAccountExplicitly(account, accountPassword, null);
             mAccountManager.setAuthToken(account, authtokenType, authtoken);
         } else {
-            Log.d("udinic", TAG + "> finishLogin > setPassword");
             mAccountManager.setPassword(account, accountPassword);
         }
-
         setAccountAuthenticatorResult(intent.getExtras());
         setResult(RESULT_OK, intent);
         finish();
@@ -121,24 +126,13 @@ public class AuthenticationActivity extends AccountAuthenticatorActivity {
         private final String TAG = this.getClass().getSimpleName();
         private AsyncResponse listener;
 
-        public interface AsyncResponse {
-            void processFinish(Intent intent);
-        }
-
         SubmitLoginTask(AsyncResponse listener) {
             this.listener = listener;
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            Log.d("udinic", TAG + "> Started authenticating");
-        }
-
-        @Override
         protected Intent doInBackground(String... params) {
-
+            Log.d("udinic", TAG + "> Started authenticating");
             String userName = params[0];
             String userPass = params[1];
             String accountType = params[2];
@@ -165,6 +159,10 @@ public class AuthenticationActivity extends AccountAuthenticatorActivity {
         @Override
         protected void onPostExecute(Intent intent) {
             listener.processFinish(intent);
+        }
+
+        public interface AsyncResponse {
+            void processFinish(Intent intent);
         }
     }
 }
