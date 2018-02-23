@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Sincronização">
+        <CheckBoxPreference
+            android:key="sync_products"
+            android:summary="Sincronizar todos os produtos fabricados"
+            android:title="Sincronizar Produtos" />
+
+        <CheckBoxPreference
+            android:key="sync_supplementation"
+            android:summary="Sincronizar aplicações de suplementos"
+            android:title="Sincronizar Suplementação" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Outras Configurações">
+        <CheckBoxPreference
+            android:key="notification"
+            android:summary="Mostrar notificações de cochos vazios"
+            android:title="Notificações de Suplementação" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="berrante_sound"
+            android:title="Berrante" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

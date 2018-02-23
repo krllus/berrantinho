@@ -67,9 +67,14 @@
     <!-- authentication -->
     <string name="account_type">com.example.joao.berrantinho</string>
     <string name="title_sign_in">Login</string>
-    <string name="preference_file_key">shared_preferrences_identifier</string>
-    <string name="account_name">preference_account_name</string>
-    <string name="account_password">preference_account_password</string>
-
+    <string name="preference_account_file_key">shared_preferrences_identifier</string>
+    <string name="preference_account_name">preference_account_name</string>
+    <string name="preference_account_type">account_type</string>
+    <string name="hint_username">Usuário</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Senha</string>
+    <string name="err_msg_name">usuario invalido</string>
+    <string name="err_msg_password">senha invalida</string>
+    <string name="err_msg_email">email invalido</string>
 
 </resources>

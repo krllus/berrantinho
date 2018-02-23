@@ -19,10 +19,12 @@ import android.widget.Toast;
 
 import com.example.joao.berrantinho.authentication.AccountGeneral;
 import com.example.joao.berrantinho.authentication.AuthenticatorActivity;
+import com.example.joao.berrantinho.model.AccountHolder;
 import com.example.joao.berrantinho.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by João Carlos on 2/21/18.
@@ -37,8 +39,6 @@ import org.greenrobot.eventbus.Subscribe;
 public class SplashScreen extends AppCompatActivity {
     private static final int REQUEST_AUTHENTICATION = 0;
     private static final int REQUEST_ACCOUNT = 1;
-
-    private static final String LOG_TAG = SplashScreen.class.getSimpleName();
 
     private static final String STATE_DIALOG = "state_dialog";
     private static final String STATE_INVALIDATE = "state_invalidate";
@@ -59,16 +59,14 @@ public class SplashScreen extends AppCompatActivity {
 
             case REQUEST_ACCOUNT:
                 if (resultCode == RESULT_OK) {
-                    AccountManager accountManager = AccountManager.get(this);
-
                     String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
                     String accountType = data.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE);
 
                     //run though all accounts, get the one with name and selected type
-                    Account[] accounts = accountManager.getAccounts();
+                    Account[] accounts = mAccountManager.getAccounts();
                     for (Account account : accounts) {
                         if (account.name.equals(accountName) && account.type.equals(accountType)) {
-                            EventBus.getDefault().post(account);
+                            getExistingAccountAuthToken(account, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);
                             break;
                         }
                     }
@@ -106,14 +104,25 @@ public class SplashScreen extends AppCompatActivity {
         super.onStop();
     }
 
-    @Subscribe
-    public void onAccountReceived(Account account) {
-        Log.d(LOG_TAG, "acc received");
-        if (account == null) {
-            Toast.makeText(this, "acc null", Toast.LENGTH_SHORT).show();
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onAccountReceived(AccountHolder holder) {
+
+        Account account = holder.getAccount();
+        String authToken = holder.getToken();
+
+        if (account == null || authToken == null) {
             Intent startupIntent = new Intent(this, AuthenticatorActivity.class);
             startActivityForResult(startupIntent, REQUEST_AUTHENTICATION);
         } else {
+            //save account in preferences
+            SharedPreferences sharedPreferences = getSharedPreferences(
+                    getString(R.string.preference_account_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(getString(R.string.preference_account_name), account.name);
+            editor.putString(getString(R.string.preference_account_type), account.type);
+            editor.apply();
+
+            //start main activity
             Intent startupIntent = new Intent(this, MainActivity.class);
             startupIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(startupIntent);
@@ -130,7 +139,6 @@ public class SplashScreen extends AppCompatActivity {
         }
     }
 
-
     private void checkUserLoggedIn() {
         String accountType = AccountGeneral.getAccountType(this);
 
@@ -139,32 +147,19 @@ public class SplashScreen extends AppCompatActivity {
             finish();
         }
 
-
         SharedPreferences sharedPreferences = getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String accountName = sharedPreferences.getString(getString(R.string.account_name), "");
+                getString(R.string.preference_account_file_key), Context.MODE_PRIVATE);
+        String accountName = sharedPreferences.getString(getString(R.string.preference_account_name), null);
 
         final Account availableAccounts[] = mAccountManager.getAccountsByType(AccountGeneral.getAccountType(this));
         for (Account account : availableAccounts) {
             if (account.name.equals(accountName) && account.type.equals(accountType)) {
                 getExistingAccountAuthToken(account, accountType);
+                return;
             }
         }
 
         showAccountPicker(accountType, false);
-
-//        Intent intent = AccountPicker.newChooseAccountIntent(
-//                null,               //selected account
-//                null,               // allowable accounts
-//                new String[]{accountType},  //allowable account types
-//                true,                    //always prompt for account
-//                null,                    //description override text
-//                null,                   //add acc auth token type
-//                null,               //add acc required features
-//                null                 //add acc options
-//        );
-//
-//        startActivityForResult(intent, REQUEST_ACCOUNT);
     }
 
     /**
@@ -173,7 +168,7 @@ public class SplashScreen extends AppCompatActivity {
      * @param accountType
      * @param authTokenType
      */
-    private void addNewAccount(String accountType, String authTokenType) {
+    private void addNewAccount(final String accountType, String authTokenType) {
         final AccountManagerFuture<Bundle> future = mAccountManager.addAccount(
                 accountType, authTokenType, null, null,
                 this, new AccountManagerCallback<Bundle>() {
@@ -181,9 +176,19 @@ public class SplashScreen extends AppCompatActivity {
                     public void run(AccountManagerFuture<Bundle> future) {
                         try {
                             Bundle bnd = future.getResult();
-                            showMessage("Account was created");
-                            Log.d("udinic", "AddNewAccount Bundle is " + bnd);
 
+                            String newAccName = bnd.getString(AccountManager.KEY_ACCOUNT_NAME);
+                            String newAccType = bnd.getString(AccountManager.KEY_ACCOUNT_TYPE);
+
+                            Account[] accounts = mAccountManager.getAccountsByType(accountType);
+                            Account createdAccount = null;
+                            for (Account account : accounts) {
+                                if (account.name.equals(newAccName) && account.type.equals(newAccType)) {
+                                    createdAccount = account;
+                                    break;
+                                }
+                            }
+                            getExistingAccountAuthToken(createdAccount, accountType);
                         } catch (Exception e) {
                             e.printStackTrace();
                             showMessage(e.getMessage());
@@ -197,10 +202,11 @@ public class SplashScreen extends AppCompatActivity {
      */
     private void showAccountPicker(final String authTokenType, final boolean invalidate) {
         mInvalidate = invalidate;
-        final Account availableAccounts[] = mAccountManager.getAccountsByType(AccountGeneral.getAccountType(this));
+        final Account availableAccounts[] =
+                mAccountManager.getAccountsByType(AccountGeneral.getAccountType(this));
 
         if (availableAccounts.length == 0) {
-
+            addNewAccount(AccountGeneral.getAccountType(this), AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);
         } else {
             String name[] = new String[availableAccounts.length];
             for (int i = 0; i < availableAccounts.length; i++) {
@@ -209,7 +215,7 @@ public class SplashScreen extends AppCompatActivity {
 
             // Account picker
             mAlertDialog = new AlertDialog.Builder(this)
-                    .setTitle("Pick Account")
+                    .setTitle("Selecione uma conta")
                     .setAdapter(new ArrayAdapter<>(getBaseContext(),
                                     android.R.layout.simple_list_item_1, name),
                             new DialogInterface.OnClickListener() {
@@ -231,7 +237,7 @@ public class SplashScreen extends AppCompatActivity {
      * @param account
      * @param authTokenType
      */
-    private void getExistingAccountAuthToken(Account account, String authTokenType) {
+    private void getExistingAccountAuthToken(final Account account, final String authTokenType) {
         final AccountManagerFuture<Bundle> future = mAccountManager.getAuthToken(account, authTokenType, null, this, null, null);
 
         new Thread(new Runnable() {
@@ -239,14 +245,10 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 try {
                     Bundle bnd = future.getResult();
+
                     final String authtoken = bnd.getString(AccountManager.KEY_AUTHTOKEN);
 
-                    if (authtoken == null) {
-
-                    }
-
-                    showMessage((authtoken != null) ? "SUCCESS!\ntoken: " + authtoken : "FAIL");
-                    Log.d("udinic", "GetToken Bundle is " + bnd);
+                    EventBus.getDefault().postSticky(new AccountHolder(account, authtoken));
                 } catch (Exception e) {
                     e.printStackTrace();
                     showMessage(e.getMessage());

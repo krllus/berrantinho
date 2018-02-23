@@ -29,6 +29,7 @@ public class AccountGeneral {
      */
     public static String getAccountType(Context context) {
         Resources resources = context.getResources();
+        //turn "com.google";
         return resources.getString(R.string.account_type);
     }
 
