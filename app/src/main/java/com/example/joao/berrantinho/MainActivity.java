@@ -21,6 +21,7 @@ import com.example.joao.berrantinho.features.databinding.NumbersActivity;
 import com.example.joao.berrantinho.features.flower.FlowerActivity;
 import com.example.joao.berrantinho.features.ingredients.IngredientsActivity;
 import com.example.joao.berrantinho.features.notification.NotificationActivity;
+import com.example.joao.berrantinho.features.seekbar.SeekBarActivity;
 import com.example.joao.berrantinho.features.suplementacao.SuplementacaoActivity;
 import com.example.joao.berrantinho.features.text.TextSampleActivity;
 import com.example.joao.berrantinho.features.toolbar.ToolbarActivity;
@@ -116,6 +117,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.launch_dialog_3:
                 intent = new Intent(this, TextSampleActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.launch_seekbar_activity:
+                intent = new Intent(this, SeekBarActivity.class);
                 startActivity(intent);
                 break;
 

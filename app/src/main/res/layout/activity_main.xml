@@ -102,6 +102,13 @@
             android:onClick="onClick"
             android:text="TextExample" />
 
+        <Button
+            android:id="@+id/launch_seekbar_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="SeekBar" />
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

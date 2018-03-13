@@ -67,7 +67,7 @@
     <!-- authentication -->
     <string name="account_type">com.example.joao.berrantinho</string>
     <string name="title_sign_in">Login</string>
-    <string name="preference_account_file_key">shared_preferrences_identifier</string>
+    <string name="preference_account_file_key">shared_preferences_identifier</string>
     <string name="preference_account_name">preference_account_name</string>
     <string name="preference_account_type">account_type</string>
     <string name="hint_username">Usuário</string>
