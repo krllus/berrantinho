@@ -9,6 +9,15 @@
     <color name="azul">#3F51B5</color>
     <color name="azul_dark">#303F9F</color>
     <color name="pink">#FF4081</color>
+    <color name="white">@android:color/white</color>
+    <color name="green">@android:color/holo_green_dark</color>
+    <color name="red">@android:color/holo_red_dark</color>
+    <color name="orange">@android:color/holo_orange_dark</color>
+    <color name="acid_green">#B0BF1A</color>
+    <color name="amaranth">#E52B50</color>
+    <color name="american_violet">#551B8C</color>
+    <color name="antique_ruby">#841B2D</color>
+
 
     <color name="palha">#efb728</color>
     <color name="marrom">#4e342e</color>

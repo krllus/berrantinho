@@ -144,7 +144,7 @@ public class SplashScreen extends AppCompatActivity {
 
         if (!Utils.isPlayServicesAvailable(this)) {
             Toast.makeText(this, "google play services not available in device.", Toast.LENGTH_SHORT).show();
-            finish();
+            //finish();
         }
 
         SharedPreferences sharedPreferences = getSharedPreferences(

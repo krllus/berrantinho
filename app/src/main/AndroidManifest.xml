@@ -71,7 +71,12 @@
             android:name=".features.flower.FlowerActivity"
             android:label="@string/title_activity_flower"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".features.piechart.PieChartTest"
+            android:label="@string/title_activity_flower"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".features.text.TextSampleActivity" />
+
 
         <service android:name=".notification.NotificationIntentService" />
         <service
