@@ -5,9 +5,12 @@
     <string name="menu_main_about">Sobre</string>
     <string name="settings">Configurações</string>
 
+    <string name="file_provider_authority" translatable="false">com.example.joao.berrantinho.fileprovider</string>
+
     <string name="activity_notification">Notification</string>
     <string name="activity_suplementacao">Suplementacao</string>
     <string name="activity_toolbar">Simple Toolbar</string>
+    <string name="activity_files">File Notes</string>
 
     <string name="btn_start_notification_label">Notificação</string>
     <string name="btn_start_suplementacao_label">Suplementacao</string>
@@ -76,5 +79,8 @@
     <string name="err_msg_name">usuario invalido</string>
     <string name="err_msg_password">senha invalida</string>
     <string name="err_msg_email">email invalido</string>
+
+    <string name="hint_note_creation">Enter you note here…</string>
+    <string name="share">Share</string>
 
 </resources>

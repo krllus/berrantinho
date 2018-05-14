@@ -1,5 +1,6 @@
 package com.example.joao.berrantinho.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,15 +28,16 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleViewHolder> {
         this.elements = new ArrayList<>();
     }
 
+    @NonNull
     @Override
-    public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SimpleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_suplementacao, parent, false);
         return new SimpleViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(SimpleViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SimpleViewHolder holder, int position) {
         Simple element = elements.get(position);
         holder.title.setText(element.getTitle());
         holder.content.setText(element.getContent());

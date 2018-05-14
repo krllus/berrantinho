@@ -1,23 +1,17 @@
 package com.example.joao.berrantinho;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joao.berrantinho.dialog.SimpleDialog;
 import com.example.joao.berrantinho.features.bolinha.BolinhaActivity;
 import com.example.joao.berrantinho.features.databinding.NumbersActivity;
+import com.example.joao.berrantinho.features.file.FilesActivity;
 import com.example.joao.berrantinho.features.flower.FlowerActivity;
 import com.example.joao.berrantinho.features.ingredients.IngredientsActivity;
 import com.example.joao.berrantinho.features.notification.NotificationActivity;
@@ -30,11 +24,11 @@ import com.example.joao.berrantinho.textwatcher.ValorMonetario;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity
+        extends AppCompatActivity
+        implements View.OnClickListener {
     private EditText editText;
 
     @Override
@@ -131,52 +125,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
 
+            case R.id.launch_create_file:
+                intent = new Intent(this, FilesActivity.class);
+                startActivity(intent);
+                break;
+
         }
     }
 
     private void showSimpleDialog() {
         SimpleDialog dialog = new SimpleDialog();
         dialog.show(getSupportFragmentManager(), SimpleDialog.DIALOG_TAG);
-    }
-
-    private class MyCustomAdapter extends ArrayAdapter<String> {
-
-        private List<String> elements;
-        private int resource;
-
-        public MyCustomAdapter(@NonNull Context context, int resource) {
-            super(context, resource);
-            elements = new ArrayList<>();
-            this.resource = resource;
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            if (convertView == null)
-                convertView = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
-            String element = elements.get(position);
-            ((TextView) convertView).setText(element);
-            convertView.setTag(position);
-            return convertView;
-        }
-
-        @Nullable
-        @Override
-        public String getItem(int position) {
-            return elements.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return elements.size();
-        }
-
-        public void setElements(List<String> elements) {
-            this.elements.clear();
-            this.elements.addAll(elements);
-            notifyDataSetChanged();
-        }
     }
 
 
