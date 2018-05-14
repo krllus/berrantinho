@@ -4,12 +4,4 @@
     <external-path
         name="root"
         path="Berrante/" />
-
-    <external-path
-        name="database"
-        path="Berrante/Database/" />
-
-    <external-path
-        name="relatorios"
-        path="Berrante/Relatorios/" />
 </paths>

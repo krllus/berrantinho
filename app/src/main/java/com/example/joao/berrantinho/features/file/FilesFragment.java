@@ -18,11 +18,14 @@ import com.example.joao.berrantinho.BaseFragment;
 import com.example.joao.berrantinho.R;
 import com.example.joao.berrantinho.adapter.NotesAdapter;
 import com.example.joao.berrantinho.model.Note;
+import com.example.joao.berrantinho.model.RelatorioDocument;
 import com.example.joao.berrantinho.utils.BioxStorageUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class FilesFragment extends BaseFragment {
@@ -33,6 +36,8 @@ public class FilesFragment extends BaseFragment {
 
     private NotesAdapter notesAdapter;
     private Button btnShareNotes;
+
+    private static Pattern pattern = Pattern.compile("(\\d+)(?!.*\\d).pdf$");
 
     public static FilesFragment newInstance() {
         return new FilesFragment();
@@ -84,11 +89,15 @@ public class FilesFragment extends BaseFragment {
     public void updateUI() {
         ArrayList<Note> notes = new ArrayList<>();
 
-        File notesDir = BioxStorageUtils.getRelatoriosDirectory(getActivity());
-
+        File notesDir = BioxStorageUtils.getDirectoryForDocumentType(new RelatorioDocument());
+        Matcher matcher;
         for (File f : notesDir.listFiles()) {
-            Note n = new Note(f.getName(), f);
-            notes.add(n);
+            String fileName = f.getName();
+            matcher = pattern.matcher(fileName);
+            if (matcher.find()) {
+                Note n = new Note(f.getName(), f);
+                notes.add(n);
+            }
         }
 
         notesAdapter.updateElements(notes);
@@ -98,7 +107,10 @@ public class FilesFragment extends BaseFragment {
         String noteMessage = edtNoteMessage.getText().toString();
         if (noteMessage.trim().isEmpty()) return;
 
-        boolean fileCreated = BioxStorageUtils.createTxtFile(getActivity(), noteMessage);
+        RelatorioDocument relatorioDocument = new RelatorioDocument();
+        relatorioDocument.setMessage(noteMessage);
+
+        boolean fileCreated = BioxStorageUtils.createDocument(relatorioDocument);
         if (fileCreated) {
             //clear edt text
             edtNoteMessage.setText("");
