@@ -84,6 +84,10 @@
             android:label="@string/title_activity_flower"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".features.flower.SelectableFlowerActivity"
+            android:label="@string/title_activity_flower"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".features.piechart.PieChartTest"
             android:label="@string/title_activity_flower"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -106,13 +106,4 @@ public class FlowerActivity extends AppCompatActivity {
         return builder.toString();
     }
 
-    private Simple generateRandomElement() {
-        int posNames = (int) (Math.random() * names.length);
-        int posContent = (int) (Math.random() * contents.length);
-        String name = names[posNames];
-        String content = contents[posContent];
-
-        return new Simple(name, content);
-    }
-
 }

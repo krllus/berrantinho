@@ -12,7 +12,7 @@ import com.example.joao.berrantinho.dialog.SimpleDialog;
 import com.example.joao.berrantinho.features.bolinha.BolinhaActivity;
 import com.example.joao.berrantinho.features.databinding.NumbersActivity;
 import com.example.joao.berrantinho.features.file.FilesActivity;
-import com.example.joao.berrantinho.features.flower.FlowerActivity;
+import com.example.joao.berrantinho.features.flower.SelectableFlowerActivity;
 import com.example.joao.berrantinho.features.ingredients.IngredientsActivity;
 import com.example.joao.berrantinho.features.notification.NotificationActivity;
 import com.example.joao.berrantinho.features.piechart.PieChartTest;
@@ -96,7 +96,7 @@ public class MainActivity
                 break;
 
             case R.id.launch_flower:
-                intent = new Intent(this, FlowerActivity.class);
+                intent = new Intent(this, SelectableFlowerActivity.class);
                 startActivity(intent);
                 break;
 

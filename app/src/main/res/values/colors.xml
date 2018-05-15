@@ -19,6 +19,8 @@
     <color name="antique_ruby">#841B2D</color>
 
 
+    <color name="colorControlActivated">#50FF4081</color>
+
     <color name="palha">#efb728</color>
     <color name="marrom">#4e342e</color>
     <color name="marrom_dark">#3e2723</color>
