@@ -11,22 +11,25 @@ import com.example.joao.berrantinho.model.DocumentType;
  * https://en.wikipedia.org/wiki/Composition_over_inheritance
  */
 public abstract class BioxDocument {
-    private final DocumentType docType;
-    private final DocumentDate docDate;
-    private final DocumentFileExtension docFileExtension;
+  private final DocumentType docType;
+  private final DocumentDate docDate;
+  private final DocumentFileExtension docFileExtension;
 
-    public BioxDocument(DocumentType documentType,
-                        DocumentDate documentDate,
-                        DocumentFileExtension documentFileExtension) {
-        this.docType = documentType;
-        this.docDate = documentDate;
-        this.docFileExtension = documentFileExtension;
-    }
+  public BioxDocument(DocumentType documentType,
+      DocumentDate documentDate,
+      DocumentFileExtension documentFileExtension) {
+    this.docType = documentType;
+    this.docDate = documentDate;
+    this.docFileExtension = documentFileExtension;
+  }
 
-    public String getFileNameFormatterString() {
-        return docType.getType() + "_" + docDate.getDate() + "_%02d." + docFileExtension.getFileExtension();
-    }
+  public String getFileNameFormatterString() {
+    return docType.getType()
+        + "_"
+        + docDate.getDate()
+        + "_%02d."
+        + docFileExtension.getFileExtension();
+  }
 
-    public abstract String getDocumentSubFolder();
-
+  public abstract String getDocumentSubFolder();
 }

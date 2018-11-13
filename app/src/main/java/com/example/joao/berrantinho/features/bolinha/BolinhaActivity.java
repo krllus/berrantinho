@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import com.example.joao.berrantinho.R;
 import com.example.joao.berrantinho.adapter.BolinhaAdapter;
 import com.example.joao.berrantinho.model.Bolinha;
@@ -16,29 +15,28 @@ import com.example.joao.berrantinho.model.Bolinha;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 public class BolinhaActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    BolinhaAdapter adapter;
+  RecyclerView recyclerView;
+  BolinhaAdapter adapter;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bolinha);
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_bolinha);
 
-        recyclerView = findViewById(R.id.recycler_view);
+    recyclerView = findViewById(R.id.recycler_view);
 
-        adapter = new BolinhaAdapter(getSupportFragmentManager());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+    adapter = new BolinhaAdapter(getSupportFragmentManager());
+    LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(layoutManager);
-    }
+    recyclerView.setAdapter(adapter);
+    recyclerView.setLayoutManager(layoutManager);
+  }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        adapter.updateElements(Bolinha.createDummyBolinhaItens());
-    }
+  @Override
+  protected void onResume() {
+    super.onResume();
+    adapter.updateElements(Bolinha.createDummyBolinhaItens());
+  }
 }

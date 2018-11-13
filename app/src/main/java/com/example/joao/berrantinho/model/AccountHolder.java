@@ -9,19 +9,19 @@ import android.accounts.Account;
  */
 
 public class AccountHolder {
-    private final Account account;
-    private final String token;
+  private final Account account;
+  private final String token;
 
-    public AccountHolder(Account account, String token) {
-        this.account = account;
-        this.token = token;
-    }
+  public AccountHolder(Account account, String token) {
+    this.account = account;
+    this.token = token;
+  }
 
-    public Account getAccount() {
-        return account;
-    }
+  public Account getAccount() {
+    return account;
+  }
 
-    public String getToken() {
-        return token;
-    }
+  public String getToken() {
+    return token;
+  }
 }

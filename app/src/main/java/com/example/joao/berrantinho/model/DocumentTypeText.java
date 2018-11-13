@@ -7,8 +7,8 @@ package com.example.joao.berrantinho.model;
  */
 public class DocumentTypeText implements DocumentType {
 
-    @Override
-    public String getType() {
-        return "text";
-    }
+  @Override
+  public String getType() {
+    return "text";
+  }
 }

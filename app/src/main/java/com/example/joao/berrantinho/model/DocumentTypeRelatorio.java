@@ -7,8 +7,8 @@ package com.example.joao.berrantinho.model;
  */
 public class DocumentTypeRelatorio implements DocumentType {
 
-    @Override
-    public String getType() {
-        return "relatorio";
-    }
+  @Override
+  public String getType() {
+    return "relatorio";
+  }
 }

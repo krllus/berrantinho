@@ -6,18 +6,18 @@ import com.example.joao.berrantinho.R;
 
 public class FilesActivity extends BaseActivity {
 
-    @Override
-    public int getActivityTitleResourceId() {
-        return R.string.activity_files;
-    }
+  @Override
+  public int getActivityTitleResourceId() {
+    return R.string.activity_files;
+  }
 
-    @Override
-    public void initDependencies() {
-        updateUI();
-    }
+  @Override
+  public void initDependencies() {
+    updateUI();
+  }
 
-    private void updateUI() {
-        BaseFragment fragment = FilesFragment.newInstance();
-        loadContentFragment(fragment);
-    }
+  private void updateUI() {
+    BaseFragment fragment = FilesFragment.newInstance();
+    loadContentFragment(fragment);
+  }
 }

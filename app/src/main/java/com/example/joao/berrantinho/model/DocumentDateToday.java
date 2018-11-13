@@ -10,10 +10,10 @@ import java.util.Locale;
  * desenvolvedorberrante@bioxbr.com
  */
 public class DocumentDateToday implements DocumentDate {
-    @Override
-    public String getDate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy", Locale.getDefault());
-        Date now = new Date();
-        return formatter.format(now);
-    }
+  @Override
+  public String getDate() {
+    SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy", Locale.getDefault());
+    Date now = new Date();
+    return formatter.format(now);
+  }
 }

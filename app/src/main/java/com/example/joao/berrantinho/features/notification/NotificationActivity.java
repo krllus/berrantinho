@@ -10,21 +10,20 @@ import com.example.joao.berrantinho.R;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 public class NotificationActivity extends BaseActivity {
 
-    @Override
-    public int getActivityTitleResourceId() {
-        return R.string.activity_notification;
-    }
+  @Override
+  public int getActivityTitleResourceId() {
+    return R.string.activity_notification;
+  }
 
-    @Override
-    public void initDependencies() {
-        updateUI();
-    }
+  @Override
+  public void initDependencies() {
+    updateUI();
+  }
 
-    private void updateUI() {
-        BaseFragment fragment = NotificationFragment.newInstance();
-        loadContentFragment(fragment);
-    }
+  private void updateUI() {
+    BaseFragment fragment = NotificationFragment.newInstance();
+    loadContentFragment(fragment);
+  }
 }

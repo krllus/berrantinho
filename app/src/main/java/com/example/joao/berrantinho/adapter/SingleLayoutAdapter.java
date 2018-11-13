@@ -6,16 +6,15 @@ package com.example.joao.berrantinho.adapter;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 public abstract class SingleLayoutAdapter<T> extends MyBaseAdapter<T> {
-    private final int layoutId;
+  private final int layoutId;
 
-    public SingleLayoutAdapter(int layoutId) {
-        this.layoutId = layoutId;
-    }
+  public SingleLayoutAdapter(int layoutId) {
+    this.layoutId = layoutId;
+  }
 
-    @Override
-    protected int getLayoutIdForPosition(int position) {
-        return layoutId;
-    }
+  @Override
+  protected int getLayoutIdForPosition(int position) {
+    return layoutId;
+  }
 }

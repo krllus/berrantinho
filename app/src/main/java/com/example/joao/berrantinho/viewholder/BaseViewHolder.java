@@ -2,7 +2,6 @@ package com.example.joao.berrantinho.viewholder;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
-
 import com.example.joao.berrantinho.BR;
 
 /**
@@ -11,19 +10,16 @@ import com.example.joao.berrantinho.BR;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 public class BaseViewHolder extends RecyclerView.ViewHolder {
-    private final ViewDataBinding binding;
+  private final ViewDataBinding binding;
 
-    public BaseViewHolder(ViewDataBinding binding) {
-        super(binding.getRoot());
-        this.binding = binding;
-    }
+  public BaseViewHolder(ViewDataBinding binding) {
+    super(binding.getRoot());
+    this.binding = binding;
+  }
 
-    public void bind(Object obj) {
-        binding.setVariable(BR.obj, obj);
-        binding.executePendingBindings();
-    }
-
-
+  public void bind(Object obj) {
+    binding.setVariable(BR.obj, obj);
+    binding.executePendingBindings();
+  }
 }

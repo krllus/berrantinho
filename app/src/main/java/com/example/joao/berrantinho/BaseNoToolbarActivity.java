@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 public abstract class BaseNoToolbarActivity extends AppCompatActivity {
 
 }

@@ -1,7 +1,6 @@
 package com.example.joao.berrantinho.features.fabrica;
 
 import android.view.View;
-
 import com.example.joao.berrantinho.BaseFragment;
 
 /**
@@ -10,35 +9,34 @@ import com.example.joao.berrantinho.BaseFragment;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 public class FabricaFragment extends BaseFragment {
 
-    public static FabricaFragment newInstance() {
-        return new FabricaFragment();
-    }
+  public static FabricaFragment newInstance() {
+    return new FabricaFragment();
+  }
 
-    @Override
-    public int getFragmentLayout() {
-        return 0;
-    }
+  @Override
+  public int getFragmentLayout() {
+    return 0;
+  }
 
-    @Override
-    public void setUpCustomViews(View rootView) {
+  @Override
+  public void setUpCustomViews(View rootView) {
 
-    }
+  }
 
-    @Override
-    public void setUpLayoutListeners() {
+  @Override
+  public void setUpLayoutListeners() {
 
-    }
+  }
 
-    @Override
-    public void initDependencies() {
+  @Override
+  public void initDependencies() {
 
-    }
+  }
 
-    @Override
-    public void updateUI() {
+  @Override
+  public void updateUI() {
 
-    }
+  }
 }

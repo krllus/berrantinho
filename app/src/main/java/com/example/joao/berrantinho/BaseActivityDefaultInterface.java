@@ -6,9 +6,8 @@ package com.example.joao.berrantinho;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 interface BaseActivityDefaultInterface {
-    int getActivityTitleResourceId();
+  int getActivityTitleResourceId();
 
-    int getActivityCustomLayout();
+  int getActivityCustomLayout();
 }

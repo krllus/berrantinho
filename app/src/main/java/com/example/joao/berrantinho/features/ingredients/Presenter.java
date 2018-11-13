@@ -6,7 +6,6 @@ package com.example.joao.berrantinho.features.ingredients;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 public interface Presenter {
-    void onAddIngredient();
+  void onAddIngredient();
 }

@@ -9,22 +9,22 @@ import com.example.joao.berrantinho.utils.BioxDocument;
  */
 public class RelatorioDocument extends BioxDocument {
 
-    private String message;
+  private String message;
 
-    public RelatorioDocument() {
-        super(new DocumentTypeRelatorio(), new DocumentDateToday(), new DocumentFileExtensionPDF());
-    }
+  public RelatorioDocument() {
+    super(new DocumentTypeRelatorio(), new DocumentDateToday(), new DocumentFileExtensionPDF());
+  }
 
-    @Override
-    public String getDocumentSubFolder() {
-        return "Relatorios";
-    }
+  @Override
+  public String getDocumentSubFolder() {
+    return "Relatorios";
+  }
 
-    public String getMessage() {
-        return message;
-    }
+  public String getMessage() {
+    return message;
+  }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+  public void setMessage(String message) {
+    this.message = message;
+  }
 }

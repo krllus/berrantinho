@@ -6,7 +6,6 @@ package com.example.joao.berrantinho.model;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
-public enum  SimpleEnum {
-    A,B,C,D
+public enum SimpleEnum {
+  A, B, C, D
 }

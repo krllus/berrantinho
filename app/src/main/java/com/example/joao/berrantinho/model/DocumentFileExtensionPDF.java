@@ -6,8 +6,8 @@ package com.example.joao.berrantinho.model;
  * desenvolvedorberrante@bioxbr.com
  */
 public class DocumentFileExtensionPDF implements DocumentFileExtension {
-    @Override
-    public String getFileExtension() {
-        return "pdf";
-    }
+  @Override
+  public String getFileExtension() {
+    return "pdf";
+  }
 }

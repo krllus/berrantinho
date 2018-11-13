@@ -2,7 +2,6 @@ package com.example.joao.berrantinho.adapter;
 
 import com.example.joao.berrantinho.R;
 import com.example.joao.berrantinho.model.Ingrediente;
-
 import java.util.List;
 
 /**
@@ -11,19 +10,18 @@ import java.util.List;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 public class IngredientesAdapter extends SingleLayoutAdapter<Ingrediente> {
 
-    public IngredientesAdapter() {
-        super(R.layout.row_ingrediente);
-    }
+  public IngredientesAdapter() {
+    super(R.layout.row_ingrediente);
+  }
 
-    @Override
-    protected Ingrediente getObjForPosition(int position) {
-        return elements.get(position);
-    }
+  @Override
+  protected Ingrediente getObjForPosition(int position) {
+    return elements.get(position);
+  }
 
-    public List<Ingrediente> getIngredientes() {
-        return this.elements;
-    }
+  public List<Ingrediente> getIngredientes() {
+    return this.elements;
+  }
 }

@@ -10,20 +10,19 @@ import com.example.joao.berrantinho.R;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 public class FabricaActivity extends BaseActivity {
-    @Override
-    public int getActivityTitleResourceId() {
-        return R.string.activity_fabrica;
-    }
+  @Override
+  public int getActivityTitleResourceId() {
+    return R.string.activity_fabrica;
+  }
 
-    @Override
-    public void initDependencies() {
-        updateUI();
-    }
+  @Override
+  public void initDependencies() {
+    updateUI();
+  }
 
-    public void updateUI() {
-        BaseFragment fragment = FabricaFragment.newInstance();
-        loadContentFragment(fragment);
-    }
+  public void updateUI() {
+    BaseFragment fragment = FabricaFragment.newInstance();
+    loadContentFragment(fragment);
+  }
 }

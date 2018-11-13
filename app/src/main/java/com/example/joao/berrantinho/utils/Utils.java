@@ -1,7 +1,6 @@
 package com.example.joao.berrantinho.utils;
 
 import android.content.Context;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -12,17 +11,15 @@ import com.google.android.gms.common.GoogleApiAvailability;
  */
 
 public class Utils {
-    public static boolean isPlayServicesAvailable(Context context) {
-        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-        int errorCode = googleApiAvailability.isGooglePlayServicesAvailable(context);
+  public static boolean isPlayServicesAvailable(Context context) {
+    GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+    int errorCode = googleApiAvailability.isGooglePlayServicesAvailable(context);
 
-        switch (errorCode) {
-            case ConnectionResult.SUCCESS:
-                return true;
-            default:
-                return false;
-        }
+    switch (errorCode) {
+      case ConnectionResult.SUCCESS:
+        return true;
+      default:
+        return false;
     }
-
-
+  }
 }

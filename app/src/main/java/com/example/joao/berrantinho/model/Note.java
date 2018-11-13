@@ -8,28 +8,28 @@ import java.io.File;
  * desenvolvedorberrante@bioxbr.com
  */
 public class Note {
-    private final String name;
-    private final File file;
-    private boolean selected;
+  private final String name;
+  private final File file;
+  private boolean selected;
 
-    public Note(String name, File file) {
-        this.name = name;
-        this.file = file;
-    }
+  public Note(String name, File file) {
+    this.name = name;
+    this.file = file;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public File getFile() {
-        return file;
-    }
+  public File getFile() {
+    return file;
+  }
 
-    public boolean isSelected() {
-        return selected;
-    }
+  public boolean isSelected() {
+    return selected;
+  }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
+  public void setSelected(boolean selected) {
+    this.selected = selected;
+  }
 }

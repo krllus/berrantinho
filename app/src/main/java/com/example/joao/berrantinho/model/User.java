@@ -9,6 +9,6 @@ import com.orm.dsl.Column;
  * desenvolvedorberrante@bioxbr.com
  */
 public class User extends SugarRecord {
-    @Column(name = "USER_NAME")
-    private String userName;
+  @Column(name = "USER_NAME")
+  private String userName;
 }

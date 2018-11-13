@@ -6,7 +6,6 @@ package com.example.joao.berrantinho.model;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 public enum TipoBolinha {
-    PEQUENA, GIGANTE
+  PEQUENA, GIGANTE
 }

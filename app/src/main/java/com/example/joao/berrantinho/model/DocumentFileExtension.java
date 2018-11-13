@@ -6,5 +6,5 @@ package com.example.joao.berrantinho.model;
  * desenvolvedorberrante@bioxbr.com
  */
 public interface DocumentFileExtension {
-    String getFileExtension();
+  String getFileExtension();
 }

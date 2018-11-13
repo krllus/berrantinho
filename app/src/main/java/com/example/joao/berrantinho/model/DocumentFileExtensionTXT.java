@@ -6,8 +6,8 @@ package com.example.joao.berrantinho.model;
  * desenvolvedorberrante@bioxbr.com
  */
 public class DocumentFileExtensionTXT implements DocumentFileExtension {
-    @Override
-    public String getFileExtension() {
-        return "txt";
-    }
+  @Override
+  public String getFileExtension() {
+    return "txt";
+  }
 }

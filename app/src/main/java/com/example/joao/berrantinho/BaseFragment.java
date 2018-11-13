@@ -15,44 +15,44 @@ import android.view.ViewGroup;
 
 public abstract class BaseFragment extends Fragment {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initDependencies();
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    initDependencies();
+  }
+
+  @Nullable
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    View rootView = inflater.inflate(resolveFragmentLayout(), container, false);
+
+    setUpCustomViews(rootView);
+
+    return rootView;
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    setUpLayoutListeners();
+  }
+
+  private int resolveFragmentLayout() {
+    int layout = getFragmentLayout();
+    if (layout == 0) {
+      throw new Error("you should provide a layout for the fragment");
     }
+    return layout;
+  }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(resolveFragmentLayout(), container, false);
+  public abstract int getFragmentLayout();
 
-        setUpCustomViews(rootView);
+  public abstract void setUpCustomViews(View rootView);
 
-        return rootView;
-    }
+  public abstract void setUpLayoutListeners();
 
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setUpLayoutListeners();
-    }
+  public abstract void initDependencies();
 
-
-    private int resolveFragmentLayout() {
-        int layout = getFragmentLayout();
-        if (layout == 0) {
-            throw new Error("you should provide a layout for the fragment");
-        }
-        return layout;
-    }
-
-    public abstract int getFragmentLayout();
-
-    public abstract void setUpCustomViews(View rootView);
-
-    public abstract void setUpLayoutListeners();
-
-    public abstract void initDependencies();
-
-    public abstract void updateUI();
+  public abstract void updateUI();
 }

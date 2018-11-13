@@ -19,113 +19,113 @@ import android.widget.ProgressBar;
  * joaocarlusferrera at gmail.com
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements BaseActivityDefaultInterface {
+public abstract class BaseActivity extends AppCompatActivity
+    implements BaseActivityDefaultInterface {
 
-    private final static String LOG_TAG = BaseActivity.class.getSimpleName();
+  private final static String LOG_TAG = BaseActivity.class.getSimpleName();
 
-    ProgressBar contentLoading;
-    FrameLayout fragmentContainer;
+  ProgressBar contentLoading;
+  FrameLayout fragmentContainer;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(resolveActivityLayout());
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(resolveActivityLayout());
 
-        setUpWindowAnimations();
-        setUpToolbar();
+    setUpWindowAnimations();
+    setUpToolbar();
 
-        setUpInitialContent();
+    setUpInitialContent();
 
-        initDependencies();
+    initDependencies();
+  }
+
+  @Override
+  public int getActivityCustomLayout() {
+    return R.layout.base_activity;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        NavUtils.navigateUpFromSameTask(this);
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  private int resolveActivityLayout() {
+    int layoutId = getActivityCustomLayout();
+    if (layoutId == 0) {
+      throw new Error("you should pass a valid layout id as parameter");
+    }
+    return layoutId;
+  }
+
+  private void setUpWindowAnimations() {
+  }
+
+  private void setUpToolbar() {
+
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
+
+    ActionBar actionBar = getSupportActionBar();
+
+    if (actionBar != null) {
+      actionBar.setDisplayHomeAsUpEnabled(true);
+      actionBar.setTitle(setUpTitle());
+    }
+  }
+
+  private CharSequence setUpTitle() {
+    int resId = getActivityTitleResourceId();
+    String title;
+
+    try {
+      if (resId != 0) {
+        title = getString(resId);
+      } else {
+        throw new Error();
+      }
+    } catch (Error error) {
+      Log.e(LOG_TAG, "you should pass a valid string id as title");
+      title = getString(R.string.app_name);
     }
 
-    @Override
-    public int getActivityCustomLayout() {
-        return R.layout.base_activity;
-    }
+    return title;
+  }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+  private void setUpInitialContent() {
+    contentLoading = findViewById(R.id.loading_progressbar);
+    fragmentContainer = findViewById(R.id.fragment_container);
+    showLoadingContent();
+  }
 
-    }
+  private void showLoadingContent() {
+    contentLoading.setVisibility(View.VISIBLE);
+    fragmentContainer.setVisibility(View.GONE);
+  }
 
-    private int resolveActivityLayout() {
-        int layoutId = getActivityCustomLayout();
-        if (layoutId == 0) {
-            throw new Error("you should pass a valid layout id as parameter");
-        }
-        return layoutId;
-    }
+  private void hideLoadingContent() {
+    contentLoading.setVisibility(View.GONE);
+    fragmentContainer.setVisibility(View.VISIBLE);
+  }
 
-    private void setUpWindowAnimations() {
-    }
+  public void loadContentFragment(BaseFragment fragment) {
 
-    private void setUpToolbar() {
+    Slide slideEnter = new Slide(Gravity.END);
+    slideEnter.setDuration(getResources().getInteger(R.integer.anim_duration_short));
+    fragment.setEnterTransition(slideEnter);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    getSupportFragmentManager()
+        .beginTransaction()
+        .replace(R.id.fragment_container, fragment)
+        .commit();
 
-        ActionBar actionBar = getSupportActionBar();
+    hideLoadingContent();
+  }
 
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(setUpTitle());
-        }
-    }
-
-    private CharSequence setUpTitle() {
-        int resId = getActivityTitleResourceId();
-        String title;
-
-        try {
-            if (resId != 0)
-                title = getString(resId);
-            else
-                throw new Error();
-        } catch (Error error) {
-            Log.e(LOG_TAG, "you should pass a valid string id as title");
-            title = getString(R.string.app_name);
-        }
-
-        return title;
-    }
-
-    private void setUpInitialContent() {
-        contentLoading = findViewById(R.id.loading_progressbar);
-        fragmentContainer = findViewById(R.id.fragment_container);
-        showLoadingContent();
-    }
-
-    private void showLoadingContent() {
-        contentLoading.setVisibility(View.VISIBLE);
-        fragmentContainer.setVisibility(View.GONE);
-    }
-
-    private void hideLoadingContent() {
-        contentLoading.setVisibility(View.GONE);
-        fragmentContainer.setVisibility(View.VISIBLE);
-    }
-
-    public void loadContentFragment(BaseFragment fragment) {
-
-        Slide slideEnter = new Slide(Gravity.END);
-        slideEnter.setDuration(getResources().getInteger(R.integer.anim_duration_short));
-        fragment.setEnterTransition(slideEnter);
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
-
-        hideLoadingContent();
-    }
-
-    public abstract void initDependencies();
-
+  public abstract void initDependencies();
 }

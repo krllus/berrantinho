@@ -3,7 +3,6 @@ package com.example.joao.berrantinho.viewholder;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-
 import com.example.joao.berrantinho.R;
 
 /**
@@ -12,22 +11,21 @@ import com.example.joao.berrantinho.R;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 public class BolinhaSmallViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView nome;
-    public TextView volumeBatida;
-    public TextView totalEmbalagem;
-    public TextView volumeEmbalagem;
-    public TextView ingredientes;
+  public TextView nome;
+  public TextView volumeBatida;
+  public TextView totalEmbalagem;
+  public TextView volumeEmbalagem;
+  public TextView ingredientes;
 
-
-    public BolinhaSmallViewHolder(View itemView) {
-        super(itemView);
-        nome = itemView.findViewById(R.id.row_fabricasuplementos_product_name_content);
-        volumeBatida = itemView.findViewById(R.id.row_fabricasuplementos_product_batida_volume_content);
-        totalEmbalagem = itemView.findViewById(R.id.row_fabricasuplementos_product_batida_total_embalagens_content);
-        volumeEmbalagem = itemView.findViewById(R.id.row_fabricasuplementos_product_volume_content);
-        ingredientes = itemView.findViewById(R.id.ingredientes);
-    }
+  public BolinhaSmallViewHolder(View itemView) {
+    super(itemView);
+    nome = itemView.findViewById(R.id.row_fabricasuplementos_product_name_content);
+    volumeBatida = itemView.findViewById(R.id.row_fabricasuplementos_product_batida_volume_content);
+    totalEmbalagem =
+        itemView.findViewById(R.id.row_fabricasuplementos_product_batida_total_embalagens_content);
+    volumeEmbalagem = itemView.findViewById(R.id.row_fabricasuplementos_product_volume_content);
+    ingredientes = itemView.findViewById(R.id.ingredientes);
+  }
 }

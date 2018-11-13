@@ -9,16 +9,16 @@ import com.example.joao.berrantinho.utils.BioxDocument;
  */
 public class SimpleTextDocument extends BioxDocument {
 
-    public SimpleTextDocument() {
-        super(new DocumentTypeText(), new DocumentDateToday(), new DocumentFileExtensionTXT());
-    }
+  public SimpleTextDocument() {
+    super(new DocumentTypeText(), new DocumentDateToday(), new DocumentFileExtensionTXT());
+  }
 
-    @Override
-    public String getDocumentSubFolder() {
-        return "Text";
-    }
+  @Override
+  public String getDocumentSubFolder() {
+    return "Text";
+  }
 
-    public String getMessage() {
-        return "Simple Text";
-    }
+  public String getMessage() {
+    return "Simple Text";
+  }
 }

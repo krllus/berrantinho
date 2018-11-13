@@ -10,20 +10,19 @@ import com.example.joao.berrantinho.R;
  * desenvolvedorberrante@bioxbr.com
  */
 
-
 public class ToolbarActivity extends BaseActivity {
-    @Override
-    public int getActivityTitleResourceId() {
-        return R.string.activity_toolbar;
-    }
+  @Override
+  public int getActivityTitleResourceId() {
+    return R.string.activity_toolbar;
+  }
 
-    @Override
-    public void initDependencies() {
-        updateUI();
-    }
+  @Override
+  public void initDependencies() {
+    updateUI();
+  }
 
-    private void updateUI() {
-        BaseFragment fragment = ToolbarFragment.newInstance();
-        loadContentFragment(fragment);
-    }
+  private void updateUI() {
+    BaseFragment fragment = ToolbarFragment.newInstance();
+    loadContentFragment(fragment);
+  }
 }

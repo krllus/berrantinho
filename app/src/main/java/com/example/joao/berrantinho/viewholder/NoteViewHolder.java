@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 import com.example.joao.berrantinho.R;
 import com.example.joao.berrantinho.model.Note;
 
@@ -15,18 +14,16 @@ import com.example.joao.berrantinho.model.Note;
  */
 public class NoteViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView name;
-    public CheckBox checkBox;
+  public TextView name;
+  public CheckBox checkBox;
 
-    public NoteViewHolder(View view) {
-        super(view);
-        name = view.findViewById(R.id.note_name);
-        checkBox = view.findViewById(R.id.checkBox);
+  public NoteViewHolder(View view) {
+    super(view);
+    name = view.findViewById(R.id.note_name);
+    checkBox = view.findViewById(R.id.checkBox);
+  }
 
-    }
-
-    public void bindView(Note note) {
-        name.setText(note.getName());
-    }
-
+  public void bindView(Note note) {
+    name.setText(note.getName());
+  }
 }
